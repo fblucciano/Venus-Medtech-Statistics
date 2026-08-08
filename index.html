@@ -122,11 +122,11 @@
             .grid-3-charts .panel:last-child { grid-column: auto; }
             .grid-2-tables { grid-template-columns: 1fr; }
             .grid-valves { grid-template-columns: repeat(2, 1fr); }
-            .top-bar { flex-direction: column; gap: 12px; align-items: center; } /* Alterado para manter o logo centralizado */
+            .top-bar { flex-direction: column; gap: 12px; align-items: center; } 
             #action-buttons { width: 100%; display: flex; gap: 8px;}
             .btn-action { flex: 1; text-align: center; padding: 12px 10px;}
             .kpi-value { font-size: 26px; }
-            .logo { max-width: 180px; } /* Ajuste fino do logo para telas pequenas */
+            .logo { max-width: 180px; } 
         }
     </style>
 </head>
@@ -228,14 +228,17 @@
 
         <!-- CHARTS -->
         <div class="grid-3-charts">
+            <!-- GRÁFICO 1: Custom Legend Doughnut -->
             <div class="panel">
                 <h2 class="panel-title">TECHNOLOGY MIX</h2>
                 <div class="chart-container"><canvas id="mixChart"></canvas></div>
             </div>
+            <!-- GRÁFICO 2: Horizontal Ranking Bar -->
             <div class="panel">
-                <h2 class="panel-title">COUNTRY DISTRIBUTION</h2>
+                <h2 class="panel-title">COUNTRY RANKING</h2>
                 <div class="chart-container"><canvas id="countryChart"></canvas></div>
             </div>
+            <!-- GRÁFICO 3: Trend -->
             <div class="panel">
                 <h2 class="panel-title">MONTHLY TREND</h2>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
@@ -292,14 +295,9 @@
 </div>
 
 <script>
-    // Configuração de Texto nos Gráficos (DataLabels)
+    // Configurações Globais Limpas para o Chart.js
     Chart.register(ChartDataLabels);
-    Chart.defaults.set('plugins.datalabels', {
-        color: '#FFFFFF',
-        font: { weight: 'bold', family: 'Space Mono', size: 12 },
-        textShadowColor: 'rgba(0,0,0,0.6)',
-        textShadowBlur: 4
-    });
+    Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 
     const MASTER_PASSWORD = "venus2026";
 
@@ -314,9 +312,6 @@
         }
     }
 
-    /* =================================================================
-       GLOBAL STATE & INTERACTIVITY
-       ================================================================= */
     let globalCases = [];
     let currentFilters = {};
     let mixChart, countryChart, trendChart;
@@ -338,14 +333,11 @@
         updateDashboard();
     }
 
-    /* =================================================================
-       INTELLIGENT NORMALIZATION (NAMES, HOSPITALS & FLAGS)
-       ================================================================= */
+    // Motores de Limpeza (mantidos iguais)
     function getFlag(name, countryDict) {
         if (name === "Fabio Silva") return "🇧🇷";
         if (name === "Stephanie Bugueño") return "🇨🇱";
         if (name === "Érika Rangel") return "🇨🇴";
-        
         if (!countryDict || Object.keys(countryDict).length === 0) return "";
         let bestCountry = Object.keys(countryDict).reduce((a, b) => countryDict[a] > countryDict[b] ? a : b);
         return FLAGS[bestCountry] || "";
@@ -526,15 +518,12 @@
         reader.readAsText(file);
     }
 
-    /* =================================================================
-       CORE DASHBOARD LOGIC (Cross-Filtering & Rendering)
-       ================================================================= */
     function updateDashboard() {
         const filterContainer = document.getElementById('active-filters-container');
         filterContainer.innerHTML = '';
         const keys = Object.keys(currentFilters);
         if(keys.length === 0) {
-            filterContainer.innerHTML = '<span style="font-size:11px; color:#64748B;">No filters active. Click on any chart, valve image, or table row to slice the data.</span>';
+            filterContainer.innerHTML = '<span style="font-size:11px; color:#64748B;">No filters active. Click on any chart or table row to slice data.</span>';
         } else {
             keys.forEach(k => {
                 filterContainer.innerHTML += `<div class="filter-chip" onclick="toggleFilter('${k}', '${currentFilters[k]}')">${k.toUpperCase()}: ${currentFilters[k]} <span>×</span></div>`;
@@ -542,7 +531,6 @@
             filterContainer.innerHTML += `<button onclick="clearFilters()" style="background:none; border:none; color:var(--danger); font-size:11px; font-weight:bold; cursor:pointer; text-decoration:underline; margin-left:10px;">Clear All</button>`;
         }
 
-        // Filtra a Base
         let filtered = globalCases.filter(c => {
             for (let k in currentFilters) {
                 if (k === 'specialists' || k === 'proctors' || k === 'implanters') {
@@ -598,7 +586,6 @@
         document.getElementById('kpi-top-hospital').innerText = Object.keys(hospitals).length ? Object.keys(hospitals).reduce((a, b) => hospitals[a] > hospitals[b] ? a : b) : "--";
         document.getElementById('kpi-doctors').innerText = Object.keys(implanters).length;
 
-        // Atualiza Cards das Válvulas
         ['Venus Vitae', 'VenusA-Valve', 'Venus PowerX', 'VenusP-Valve'].forEach(v => {
             let el = document.getElementById('card-' + v);
             if(v === 'Venus Vitae') document.getElementById('count-Vitae').innerText = valves[v] || 0;
@@ -612,7 +599,6 @@
             }
         });
 
-        // Renderização de Tabelas com Bandeiras
         function renderTable(tableId, dataObj, filterKey, isProctor = false, countryMap = {}) {
             let tbody = document.querySelector(`#${tableId} tbody`);
             tbody.innerHTML = '';
@@ -635,48 +621,82 @@
         renderTable('implants-table', implanters, 'implanters', false, implC);
         renderTable('proctor-table', proctors, 'proctors', true, procC);
 
-        // Atualização de Gráficos (Lógica Inteligente de Labels)
-        const pieFormatter = (value, ctx) => {
-            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-            let percentage = (value * 100 / sum).toFixed(1);
-            // Esconde labels de fatias muito pequenas para evitar o visual "embolado"
-            if (percentage < 6 && value < 6) return ''; 
-            return `${value} (${percentage}%)`;
-        };
-
-        const chartClick = (filterKey) => (evt, elements, chart) => {
-            if (elements.length > 0) toggleFilter(filterKey, chart.data.labels[elements[0].index]);
-        };
-
+        /* ================= GRÁFICOS MELHORADOS (O SEGREDO DO MOBILE) ================= */
+        
+        // 1. DOUGHNUT (MIX) - SEM NÚMEROS DENTRO, COM LEGENDA CUSTOMIZADA
         if(mixChart) mixChart.destroy();
         mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
             type: 'doughnut',
-            data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'] }] },
+            data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'], borderWidth: 2 }] },
             options: { 
-                responsive: true, maintainAspectRatio: false, onClick: chartClick('valve'), 
-                plugins: { datalabels: { formatter: pieFormatter } } 
+                responsive: true, maintainAspectRatio: false, 
+                cutout: '60%', // Deixa o doughnut mais fino e elegante
+                plugins: { 
+                    datalabels: { display: false }, // DESLIGA OS NÚMEROS DA PIZZA
+                    legend: { 
+                        position: 'bottom', align: 'start', 
+                        labels: { 
+                            padding: 12, font: {family: 'Space Mono', size: 11}, color: '#1E293B',
+                            generateLabels: (chart) => {
+                                const data = chart.data; const total = data.datasets[0].data.reduce((a,b)=>a+b,0);
+                                return data.labels.map((lbl, i) => {
+                                    const v = data.datasets[0].data[i]; const pct = total > 0 ? (v*100/total).toFixed(1)+'%' : '0%';
+                                    return { text: `${lbl}: ${v} (${pct})`, fillStyle: data.datasets[0].backgroundColor[i], index: i };
+                                });
+                            }
+                        },
+                        onClick: (e, legendItem, legend) => {
+                            toggleFilter('valve', legend.chart.data.labels[legendItem.index]);
+                        }
+                    } 
+                },
+                onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('valve', chart.data.labels[elements[0].index]); }
             }
         });
 
+        // 2. BARRA HORIZONTAL (RANKING DE PAÍSES) - ADEUS PIZZA!
+        let sortedCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]);
+        let cLabels = sortedCountries.map(x => x[0] + " " + FLAGS[x[0]]);
+        let cData = sortedCountries.map(x => x[1]);
+        
         if(countryChart) countryChart.destroy();
         countryChart = new Chart(document.getElementById('countryChart').getContext('2d'), {
-            type: 'pie',
-            data: { labels: Object.keys(countries), datasets: [{ data: Object.values(countries), backgroundColor: ['#302B6A', '#E68A2E', '#171434', '#4B5563', '#10B981'] }] },
+            type: 'bar', // Tipo barra
+            data: { labels: cLabels, datasets: [{ data: cData, backgroundColor: ['#302B6A', '#E68A2E', '#171434', '#6B7280', '#10B981', '#3B82F6', '#F59E0B'], borderRadius: 4 }] },
             options: { 
-                responsive: true, maintainAspectRatio: false, onClick: chartClick('country'),
-                plugins: { datalabels: { formatter: pieFormatter } },
-                layout: { padding: { top: 10, bottom: 10 } } // Dá mais espaço para o gráfico no mobile
+                indexAxis: 'y', // Faz a barra ficar horizontal
+                responsive: true, maintainAspectRatio: false, 
+                plugins: { 
+                    legend: { display: false },
+                    datalabels: { 
+                        align: 'end', anchor: 'end', color: '#171434', font: {family: 'Space Mono', size: 11, weight: 'bold'}, textShadowBlur: 0,
+                        formatter: (val, ctx) => {
+                            const total = ctx.chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
+                            return `${val} (${(val*100/total).toFixed(1)}%)`;
+                        }
+                    } 
+                },
+                scales: { 
+                    x: { display: false, suggestedMax: Math.max(...cData) * 1.3 }, // Esconde o eixo X e dá espaço pro número
+                    y: { grid: { display: false }, ticks: { font: {weight: 'bold', size: 11}, color: '#1E293B' } }
+                },
+                onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('country', sortedCountries[elements[0].index][0]); }
             }
         });
 
+        // 3. BARRA VERTICAL (TENDÊNCIA)
         if(trendChart) trendChart.destroy();
         trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
             type: 'bar',
-            data: { labels: monthNames, datasets: [{ label: 'Implants', data: monthCounts, backgroundColor: '#302B6A', borderRadius: 6 }] },
+            data: { labels: monthNames, datasets: [{ label: 'Implants', data: monthCounts, backgroundColor: '#302B6A', borderRadius: 4 }] },
             options: { 
-                responsive: true, maintainAspectRatio: false, onClick: chartClick('monthName'),
-                plugins: { datalabels: { align: 'end', anchor: 'end', color: '#171434', textShadowBlur: 0, font: {size: 14}, formatter: (v) => v > 0 ? v : '' } },
-                scales: { y: { suggestedMax: Math.max(...monthCounts) * 1.2 } }
+                responsive: true, maintainAspectRatio: false, 
+                plugins: { 
+                    legend: { display: false },
+                    datalabels: { align: 'end', anchor: 'end', color: '#171434', textShadowBlur: 0, font: {family: 'Space Mono', size: 12, weight: 'bold'}, formatter: (v) => v > 0 ? v : '' } 
+                },
+                scales: { x: { grid: { display: false } }, y: { display: false, suggestedMax: Math.max(...monthCounts) * 1.2 } },
+                onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('monthName', chart.data.labels[elements[0].index]); }
             }
         });
     }
