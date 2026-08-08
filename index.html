@@ -32,7 +32,7 @@
         
         /* LOGIN */
         #login-screen { width: 100%; max-width: 420px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; margin-top: 10vh; }
-        .login-logo { height: 50px; margin-bottom: 25px; }
+        .login-logo { height: 45px; object-fit: contain; margin-bottom: 25px; max-width: 250px; }
         .login-title { font-size: 22px; font-weight: 800; color: var(--venus-deep); margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: -0.5px;}
         .login-input { width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 16px; text-align: center; box-sizing: border-box; outline: none; font-family: 'Space Mono', monospace; background: #F8FAFC; color: var(--venus-deep); margin-top: 20px; margin-bottom: 15px; transition: 0.2s; }
         .login-input:focus { border-color: var(--venus-accent); background: var(--card-bg); }
@@ -45,7 +45,7 @@
         #app-content.pdf-print-mode { max-width: 1140px !important; width: 1140px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
         .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
-        .logo { height: 32px; }
+        .logo { height: 32px; object-fit: contain; max-width: 200px; }
         .btn-action { background: var(--venus-deep); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-action.export { background: var(--success); }
         .btn-action.reset { background: var(--venus-accent); color: var(--venus-deep); }
@@ -122,10 +122,11 @@
             .grid-3-charts .panel:last-child { grid-column: auto; }
             .grid-2-tables { grid-template-columns: 1fr; }
             .grid-valves { grid-template-columns: repeat(2, 1fr); }
-            .top-bar { flex-direction: column; gap: 12px; align-items: stretch; }
+            .top-bar { flex-direction: column; gap: 12px; align-items: center; } /* Alterado para manter o logo centralizado */
             #action-buttons { width: 100%; display: flex; gap: 8px;}
-            .btn-action { flex: 1; text-align: center; }
+            .btn-action { flex: 1; text-align: center; padding: 12px 10px;}
             .kpi-value { font-size: 26px; }
+            .logo { max-width: 180px; } /* Ajuste fino do logo para telas pequenas */
         }
     </style>
 </head>
@@ -243,7 +244,7 @@
 
         <!-- TABLES (2x2 GRID) -->
         <div class="grid-2-tables">
-            <!-- HOSPITALS (NEW) -->
+            <!-- HOSPITALS -->
             <div class="panel">
                 <h2 class="panel-title">HOSPITAL RANKING</h2>
                 <div class="table-wrap">
@@ -341,12 +342,10 @@
        INTELLIGENT NORMALIZATION (NAMES, HOSPITALS & FLAGS)
        ================================================================= */
     function getFlag(name, countryDict) {
-        // Regra de Especialistas Corporativos da Venus
         if (name === "Fabio Silva") return "🇧🇷";
         if (name === "Stephanie Bugueño") return "🇨🇱";
         if (name === "Érika Rangel") return "🇨🇴";
         
-        // Atribuição Dinâmica (País com maior volume de casos da pessoa/hospital)
         if (!countryDict || Object.keys(countryDict).length === 0) return "";
         let bestCountry = Object.keys(countryDict).reduce((a, b) => countryDict[a] > countryDict[b] ? a : b);
         return FLAGS[bestCountry] || "";
@@ -558,7 +557,7 @@
         document.getElementById('kpi-total').innerText = filtered.length;
 
         let valves = {}, countries = {}, hospitals = {}, implanters = {}, specs = {}, proctors = {}, monthCounts = new Array(12).fill(0);
-        let hospC = {}, implC = {}, specC = {}, procC = {}; // Armazena países para as bandeiras
+        let hospC = {}, implC = {}, specC = {}, procC = {};
         let totalFees = 0;
 
         filtered.forEach(c => {
@@ -636,11 +635,12 @@
         renderTable('implants-table', implanters, 'implanters', false, implC);
         renderTable('proctor-table', proctors, 'proctors', true, procC);
 
-        // Atualização de Gráficos
+        // Atualização de Gráficos (Lógica Inteligente de Labels)
         const pieFormatter = (value, ctx) => {
             let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
             let percentage = (value * 100 / sum).toFixed(1);
-            if (percentage < 6) return ''; // Esconde labels que iriam encavalar (menores que 6%)
+            // Esconde labels de fatias muito pequenas para evitar o visual "embolado"
+            if (percentage < 6 && value < 6) return ''; 
             return `${value} (${percentage}%)`;
         };
 
@@ -652,14 +652,21 @@
         mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
             type: 'doughnut',
             data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'] }] },
-            options: { responsive: true, maintainAspectRatio: false, onClick: chartClick('valve'), plugins: { datalabels: { formatter: pieFormatter } } }
+            options: { 
+                responsive: true, maintainAspectRatio: false, onClick: chartClick('valve'), 
+                plugins: { datalabels: { formatter: pieFormatter } } 
+            }
         });
 
         if(countryChart) countryChart.destroy();
         countryChart = new Chart(document.getElementById('countryChart').getContext('2d'), {
             type: 'pie',
             data: { labels: Object.keys(countries), datasets: [{ data: Object.values(countries), backgroundColor: ['#302B6A', '#E68A2E', '#171434', '#4B5563', '#10B981'] }] },
-            options: { responsive: true, maintainAspectRatio: false, onClick: chartClick('country'), plugins: { datalabels: { formatter: pieFormatter } } }
+            options: { 
+                responsive: true, maintainAspectRatio: false, onClick: chartClick('country'),
+                plugins: { datalabels: { formatter: pieFormatter } },
+                layout: { padding: { top: 10, bottom: 10 } } // Dá mais espaço para o gráfico no mobile
+            }
         });
 
         if(trendChart) trendChart.destroy();
