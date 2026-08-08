@@ -28,7 +28,7 @@
             --danger: #EF4444;
         }
 
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 25px 15px; display: flex; justify-content: center; min-height: 100vh; align-items: flex-start; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 20px 10px; display: flex; justify-content: center; min-height: 100vh; align-items: flex-start; box-sizing: border-box;}
         
         /* LOGIN */
         #login-screen { width: 100%; max-width: 420px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; margin-top: 10vh; }
@@ -40,103 +40,103 @@
         .login-btn:hover { background: var(--venus-blue); transform: translateY(-2px); }
         .error-msg { color: var(--danger); font-size: 12px; margin-top: 15px; display: none; font-weight: bold; }
 
-        /* DASHBOARD LAYOUT */
-        #app-content { display: none; width: 100%; max-width: 1160px; flex-direction: column; gap: 20px; box-sizing: border-box; }
+        /* DASHBOARD LAYOUT BLINDADO PARA MOBILE/ROTACIONAMENTO */
+        #app-content { display: none; width: 100%; max-width: 1160px; flex-direction: column; gap: 16px; box-sizing: border-box; }
         #app-content.pdf-print-mode { max-width: 1160px !important; width: 1160px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
-        .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02); box-sizing: border-box;}
         .logo { height: 32px; object-fit: contain; max-width: 200px; }
-        .btn-action { background: var(--venus-deep); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn-action { background: var(--venus-deep); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-action.export { background: var(--success); }
         .btn-action.reset { background: var(--venus-accent); color: var(--venus-deep); }
         
-        .upload-zone { border: 2px dashed var(--venus-blue); border-radius: 12px; background: #EEF2FF; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .upload-zone { border: 2px dashed var(--venus-blue); border-radius: 12px; background: #EEF2FF; padding: 35px 20px; text-align: center; cursor: pointer; transition: 0.3s; }
         .upload-zone:hover { background: #E0E7FF; border-color: var(--venus-accent); }
-        .upload-zone h3 { margin: 0; color: var(--venus-deep); font-size: 16px; text-transform: uppercase;}
+        .upload-zone h3 { margin: 0; color: var(--venus-deep); font-size: 15px; text-transform: uppercase;}
         .upload-zone p { margin: 5px 0 0 0; color: var(--text-muted); font-size: 12px; }
 
         /* ACTIVE FILTERS BAR */
-        .filter-bar { background: var(--card-bg); padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .filter-bar { background: var(--card-bg); padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.02); box-sizing: border-box;}
         .filter-label { font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; }
-        .filter-chip { display: inline-flex; align-items: center; background: #EEF2FF; color: var(--venus-blue); border: 1px solid #C7D2FE; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s;}
+        .filter-chip { display: inline-flex; align-items: center; background: #EEF2FF; color: var(--venus-blue); border: 1px solid #C7D2FE; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s;}
         .filter-chip:hover { background: #FEE2E2; color: var(--danger); border-color: #FECACA; }
         .filter-chip span { margin-left: 6px; font-weight: 900; }
 
-        /* EQUIDISTANT GRIDS (ALTURAS IGUAIS E PERFEITAS) */
-        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; align-items: stretch; }
-        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 130px; box-sizing: border-box;}
-        .valve-card:hover { transform: translateY(-4px); border-color: var(--venus-blue); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .valve-card.active { border-color: var(--venus-accent); background: #FFF7ED; transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(230,138,46,0.2); }
-        .valve-img { height: 50px; object-fit: contain; margin-bottom: 4px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); transition: transform 0.3s;}
-        .valve-card:hover .valve-img { transform: scale(1.08); }
+        /* GRIDS FLEXÍVEIS E EQUIDISTANTES */
+        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; box-sizing: border-box; }
+        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 120px; box-sizing: border-box;}
+        .valve-card:hover { transform: translateY(-2px); border-color: var(--venus-blue); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+        .valve-card.active { border-color: var(--venus-accent); background: #FFF7ED; transform: translateY(-2px); }
+        .valve-img { height: 48px; object-fit: contain; margin-bottom: 4px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
         .valve-name { font-size: 11px; font-weight: 800; color: var(--venus-deep); margin-bottom: 2px; text-transform: uppercase;}
         .valve-count { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: bold; color: var(--venus-accent); }
         .valve-card.active .valve-name { color: var(--venus-accent); }
 
-        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; align-items: stretch; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 110px; box-sizing: border-box; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; box-sizing: border-box; }
+        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; align-items: center; min-height: 105px; box-sizing: border-box; }
         .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-value { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 800; color: var(--venus-deep); margin: 4px 0; text-align: center; width: 100%; line-height: 1.1;}
+        .kpi-value { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 800; color: var(--venus-deep); margin: 4px 0; text-align: center; width: 100%; line-height: 1.1; word-break: break-word;}
         .kpi-value.highlight { color: var(--venus-accent); }
         .kpi-sub { font-size: 9.5px; color: var(--venus-blue); font-weight: 700; }
 
         /* GRIDS & PANELS */
-        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: stretch; }
-        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: stretch; }
-        .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; box-sizing: border-box; height: 100%; }
+        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; box-sizing: border-box; }
+        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; box-sizing: border-box; }
+        .panel { background: var(--card-bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; box-sizing: border-box; }
         
-        .panel-header { text-align: center; margin-bottom: 15px; width: 100%; }
-        .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 6px; display: inline-block; letter-spacing: 0.5px;}
+        .panel-header { text-align: center; margin-bottom: 12px; width: 100%; }
+        .panel-title { color: var(--venus-deep); font-size: 12px; font-weight: 800; margin: 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 5px; display: inline-block; letter-spacing: 0.5px;}
         
-        .chart-container { position: relative; width: 100%; flex-grow: 1; min-height: 240px; display: flex; flex-direction: column; justify-content: center;}
+        .chart-container { position: relative; width: 100%; height: 230px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;}
 
         /* HTML RANKING BAR */
-        .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 12px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
+        .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 10px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
         .html-ranking-row:hover { background-color: #EEF2FF; }
-        .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: var(--venus-deep); margin-bottom: 6px; }
-        .html-ranking-flag { font-size: 16px; margin-right: 6px; vertical-align: middle; }
-        .html-ranking-data { font-family: 'Space Mono', monospace; color: var(--venus-blue); font-size: 13px;}
-        .html-ranking-track { width: 100%; background: #E2E8F0; border-radius: 4px; height: 10px; overflow: hidden; }
-        .html-ranking-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800; color: var(--venus-deep); margin-bottom: 4px; }
+        .html-ranking-flag { font-size: 15px; margin-right: 6px; vertical-align: middle; }
+        .html-ranking-data { font-family: 'Space Mono', monospace; color: var(--venus-blue); font-size: 12px;}
+        .html-ranking-track { width: 100%; background: #E2E8F0; border-radius: 4px; height: 8px; overflow: hidden; }
+        .html-ranking-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 
         /* TABLES */
-        .table-wrap { flex-grow: 1; max-height: 280px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 280px; }
-        .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 12px 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
-        .data-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
+        .table-wrap { flex-grow: 1; max-height: 260px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 260px; box-sizing: border-box; }
+        .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 10px 8px; font-weight: bold; text-transform: uppercase; z-index: 1;}
+        .data-table td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
         .clickable-row { cursor: pointer; transition: 0.2s; }
         .clickable-row:hover { background: #EEF2FF; }
-        .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-deep); font-weight: bold; text-align: center; font-size: 14px;}
-        .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 13px;}
-        .data-table .badge { background: #FEF3C7; color: #D97706; padding: 3px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block; font-weight:bold;}
-        .data-table .flag-icon { font-size: 16px; margin-right: 6px; vertical-align: middle; }
-        .medal { font-size: 16px; margin-right: 6px; }
+        .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-deep); font-weight: bold; text-align: center; font-size: 13px;}
+        .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 12px;}
+        .data-table .badge { background: #FEF3C7; color: #D97706; padding: 2px 5px; border-radius: 4px; font-size: 8.5px; margin-top:3px; display:inline-block; font-weight:bold;}
+        .data-table .flag-icon { font-size: 15px; margin-right: 6px; vertical-align: middle; }
+        .medal { font-size: 15px; margin-right: 4px; }
 
         .hidden { display: none !important; }
         
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 8px; }
-        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 6px; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
 
+        /* MEDIA QUERIES APERFEIÇOADAS PARA Rotação Portrait/Landscape */
         @media (max-width: 1024px) {
             .grid-5 { grid-template-columns: repeat(3, 1fr); }
+            .grid-5 .kpi-card:nth-child(4), .grid-5 .kpi-card:nth-child(5) { grid-column: span 1; }
             .grid-3-charts { grid-template-columns: 1fr 1fr; }
             .grid-3-charts .panel:last-child { grid-column: span 2; }
         }
         @media (max-width: 768px) {
-            body { padding: 15px 10px; }
-            .grid-5 { grid-template-columns: 1fr 1fr; }
+            body { padding: 10px 6px; }
+            .grid-5 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .grid-5 .kpi-card:last-child { grid-column: span 2; }
-            .grid-3-charts { grid-template-columns: 1fr; }
+            .grid-3-charts { grid-template-columns: 1fr; gap: 10px; }
             .grid-3-charts .panel:last-child { grid-column: auto; }
-            .grid-2-tables { grid-template-columns: 1fr; }
-            .grid-valves { grid-template-columns: repeat(2, 1fr); }
-            .top-bar { flex-direction: column; gap: 12px; align-items: center; } 
+            .grid-2-tables { grid-template-columns: 1fr; gap: 10px; }
+            .grid-valves { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .top-bar { flex-direction: column; gap: 10px; align-items: center; padding: 12px 15px; } 
             #action-buttons { width: 100%; display: flex; gap: 8px;}
-            .btn-action { flex: 1; text-align: center; padding: 12px 10px;}
-            .kpi-value { font-size: 22px; }
-            .logo { max-width: 180px; } 
+            .btn-action { flex: 1; text-align: center; padding: 10px 8px; font-size: 10px;}
+            .kpi-value { font-size: 20px; }
+            .logo { max-width: 160px; } 
         }
     </style>
 </head>
@@ -180,7 +180,7 @@
         <!-- ACTIVE FILTERS -->
         <div class="filter-bar" id="filter-bar">
             <span class="filter-label">Active Filters:</span>
-            <div id="active-filters-container" style="display:flex; gap:8px; flex-wrap:wrap; justify-content: center;"></div>
+            <div id="active-filters-container" style="display:flex; gap:6px; flex-wrap:wrap; justify-content: center;"></div>
         </div>
 
         <!-- VALVE INTERACTIVE CARDS -->
@@ -221,12 +221,12 @@
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Country</div>
-                <div class="kpi-value" id="kpi-top-country" style="font-size: 22px;">--</div>
+                <div class="kpi-value" id="kpi-top-country" style="font-size: 20px;">--</div>
                 <div class="kpi-sub">By Volume</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Hospital</div>
-                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 14px; line-height: 1.2;">--</div>
+                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 13px; line-height: 1.2;">--</div>
                 <div class="kpi-sub">Most Active Center</div>
             </div>
             <div class="kpi-card">
@@ -483,7 +483,7 @@
             const idxCountry = headers.findIndex(h => h.includes("country") || h.includes("país"));
             const idxHosp = headers.findIndex(h => h.includes("hospital") || h.includes("centro") || h.includes("centre"));
             const idxValve = headers.findIndex(h => h.includes("product") || h.includes("valve"));
-            const idxProctor = headers.findIndex(h => h === "proctor"); // Nome exato da coluna Proctor
+            const idxProctor = headers.findIndex(h => h === "proctor"); 
             const idxImplanter = headers.findIndex(h => h.includes("implanter") || h.includes("operador"));
             const idxSpec = headers.findIndex(h => h.includes("specialist") || h.includes("especialista"));
 
@@ -575,7 +575,12 @@
                     if (!proctors[p]) proctors[p] = { total: 0, paidCases: 0 };
                     proctors[p].total++;
                     if(!procC[p]) procC[p] = {}; procC[p][c.country] = (procC[p][c.country] || 0) + 1;
-                    if (c.country !== "Brazil") { proctors[p].paidCases++; totalFees += 2000; }
+                    
+                    // REGRA DE PROCTORIA: Recebe se o caso foi NO EXTERIOR (País diferente de Brazil)
+                    if (c.country !== "Brazil") { 
+                        proctors[p].paidCases++; 
+                        totalFees += 2000; 
+                    }
                 }
             });
 
@@ -642,7 +647,8 @@
 
                     let display = `${medal} <span class="flag-icon">${flag}</span> ${name}`;
                     let fee = val.paidCases * 2000;
-                    let badge = (val.total > val.paidCases) ? `<br><span class="badge" style="margin-left:28px;">BR Excl.</span>` : ``;
+                    // Aviso se teve casos no Brasil (sem proctoria local)
+                    let badge = (val.total > val.paidCases) ? `<br><span class="badge" style="margin-left:26px;">BR Cases (No Fee)</span>` : ``;
                     tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display} ${badge}</td><td class="val">${val.total}</td><td class="money">$${fee.toLocaleString()}</td></tr>`;
                 } else {
                     let display = `<span class="flag-icon">${flag}</span> ${name}`;
@@ -667,7 +673,7 @@
                     legend: { 
                         position: 'bottom', align: 'start', 
                         labels: { 
-                            padding: 12, font: {family: 'Space Mono', size: 11}, color: '#1E293B',
+                            padding: 10, font: {family: 'Space Mono', size: 10.5}, color: '#1E293B',
                             generateLabels: (chart) => {
                                 const data = chart.data; const t = data.datasets[0].data.reduce((a,b)=>a+b,0);
                                 return data.labels.map((lbl, i) => {
@@ -692,7 +698,7 @@
                 responsive: true, maintainAspectRatio: false, 
                 plugins: { 
                     legend: { display: false },
-                    datalabels: { align: 'end', anchor: 'end', color: '#171434', textShadowBlur: 0, font: {family: 'Space Mono', size: 12, weight: 'bold'}, formatter: (v) => v > 0 ? v : '' } 
+                    datalabels: { align: 'end', anchor: 'end', color: '#171434', textShadowBlur: 0, font: {family: 'Space Mono', size: 11, weight: 'bold'}, formatter: (v) => v > 0 ? v : '' } 
                 },
                 scales: { x: { grid: { display: false } }, y: { display: false, suggestedMax: Math.max(...monthCounts) * 1.2 } },
                 onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('monthName', chart.data.labels[elements[0].index]); }
