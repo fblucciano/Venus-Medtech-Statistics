@@ -3,167 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VenusMedtech - Advanced Executive Dashboard</title>
+    <title>VenusMedtech - Advanced Power BI Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Bibliotecas para Gráficos e Labels -->
+    <!-- Bibliotecas de Gráfico, Labels e PDF -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <!-- Biblioteca para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
-            --bg-white: #F4F6F9;
-            --panel-bg: #FFFFFF;
-            --panel-border: #E2E8F0;
-            --venus-deep-blue: #171434;
+            --bg-body: #F1F5F9;
+            --card-bg: #FFFFFF;
+            --border-color: #E2E8F0;
+            --venus-deep: #171434;
             --venus-blue: #302B6A;
-            --venus-yellow: #E68A2E;
-            --input-bg: #F3F4F6;
-            --input-border: #D1D5DB;
-            --text-main: #1F2937;
-            --text-grey: #6B7280;
-            --white: #FFFFFF;
+            --venus-accent: #E68A2E;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --success: #10B981;
+            --danger: #EF4444;
         }
 
-        body {
-            font-family: 'Circular', 'Yu Gothic UI', -apple-system, sans-serif;
-            background-color: var(--bg-white);
-            margin: 0;
-            padding: 30px 15px;
-            display: flex;
-            justify-content: center;
-            color: var(--text-main);
-            min-height: 100vh;
-            align-items: flex-start;
-            box-sizing: border-box;
-        }
-
-        /* TELA DE LOGIN */
-        #login-screen { width: 100%; max-width: 400px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 10px 25px rgba(23, 20, 52, 0.08); margin: auto; margin-top: 10vh; }
-        .login-logo { height: 45px; margin-bottom: 20px; }
-        .login-title { font-size: 20px; font-weight: 800; color: var(--venus-deep-blue); margin: 0 0 8px 0; text-transform: uppercase; }
-        .login-input { width: 100%; padding: 14px; border: 1px solid var(--input-border); border-radius: 12px; font-size: 15px; text-align: center; box-sizing: border-box; outline: none; font-family: 'Space Mono', monospace; background: var(--input-bg); color: var(--venus-deep-blue); margin-bottom: 15px; }
-        .login-input:focus { border-color: var(--venus-blue); background: #FFFFFF; }
-        .login-btn { width: 100%; background-color: var(--venus-deep-blue); color: #FFFFFF; border: none; padding: 14px; border-radius: 12px; font-weight: bold; font-size: 13px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-        .login-btn:hover { background-color: var(--venus-blue); }
-        .error-msg { color: #C62828; font-size: 11px; margin-top: 10px; display: none; font-weight: 600; }
-
-        /* DASHBOARD APP CONTAINER */
-        #app-content { display: none; width: 100%; max-width: 900px; flex-direction: column; gap: 15px; margin: 0 auto; box-sizing: border-box; }
-        #app-content.pdf-print-mode { max-width: 900px !important; width: 900px !important; display: flex !important; padding: 15px !important; margin: 0 !important; }
-
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; background: var(--panel-bg); padding: 15px 20px; border-radius: 12px; border: 1px solid var(--panel-border); box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
-        .logo { height: 32px; }
-        .btn-action { background-color: var(--venus-deep-blue); color: var(--white); border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: opacity 0.2s; }
-        .btn-action.export-btn { background-color: #2E7D32; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-body); color: var(--text-dark); margin: 0; padding: 25px 15px; display: flex; justify-content: center; min-height: 100vh; }
         
-        .panel { background-color: var(--panel-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--panel-border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); box-sizing: border-box; page-break-inside: avoid; }
-        .panel-title { color: var(--venus-blue); font-size: 13px; font-weight: bold; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--venus-yellow); padding-bottom: 5px; display: inline-block;}
+        /* LOGIN */
+        #login-screen { width: 100%; max-width: 420px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; margin-top: 10vh; }
+        .login-logo { height: 50px; margin-bottom: 25px; }
+        .login-title { font-size: 22px; font-weight: 800; color: var(--venus-deep); margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: -0.5px;}
+        .login-input { width: 100%; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 16px; text-align: center; box-sizing: border-box; outline: none; font-family: 'Space Mono', monospace; background: #F8FAFC; color: var(--venus-deep); margin-top: 20px; margin-bottom: 15px; transition: 0.2s; }
+        .login-input:focus { border-color: var(--venus-accent); background: var(--card-bg); }
+        .login-btn { width: 100%; background: var(--venus-deep); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 14px; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .login-btn:hover { background: var(--venus-blue); transform: translateY(-2px); }
 
-        /* UPLOAD ZONE */
-        .upload-zone { border: 2px dashed var(--venus-blue); border-radius: 10px; background-color: #F8F9FC; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s; }
-        .upload-zone:hover { background-color: #F0F4FF; border-color: var(--venus-yellow); }
-        .upload-zone span { font-size: 16px; font-weight: bold; color: var(--venus-deep-blue); }
-        .upload-zone p { font-size: 12px; color: var(--text-grey); margin-top: 5px; }
+        /* DASHBOARD LAYOUT */
+        #app-content { display: none; width: 100%; max-width: 1080px; flex-direction: column; gap: 15px; box-sizing: border-box; }
+        #app-content.pdf-print-mode { max-width: 1080px !important; width: 1080px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
-        /* KPI CARDS */
-        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 10px; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8F9FC); border: 1px solid var(--panel-border); border-radius: 10px; padding: 15px 5px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center;}
-        .kpi-title { font-size: 9.5px; color: var(--text-grey); font-weight: bold; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px;}
-        .kpi-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: bold; color: var(--venus-yellow); }
-        .kpi-sub { font-size: 9px; color: var(--venus-blue); font-weight: 600; margin-top: 4px; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
+        .logo { height: 32px; }
+        .btn-action { background: var(--venus-deep); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn-action.export { background: var(--success); }
+        .btn-action.reset { background: var(--venus-accent); color: var(--venus-deep); }
+        
+        .upload-zone { border: 2px dashed var(--venus-blue); border-radius: 12px; background: #EEF2FF; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .upload-zone:hover { background: #E0E7FF; border-color: var(--venus-accent); }
+        .upload-zone h3 { margin: 0; color: var(--venus-deep); font-size: 16px; }
+        .upload-zone p { margin: 5px 0 0 0; color: var(--text-muted); font-size: 12px; }
 
-        /* CHARTS & TABLES GRIDS */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        /* ACTIVE FILTERS BAR */
+        .filter-bar { background: var(--card-bg); padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .filter-label { font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; }
+        .filter-chip { display: inline-flex; align-items: center; background: var(--venus-blue); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(48,43,106,0.3);}
+        .filter-chip:hover { background: var(--danger); }
+        .filter-chip span { margin-left: 6px; color: var(--venus-accent); font-weight: 900; }
+
+        /* KPIs */
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 5px; }
+        .kpi-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.2s; }
+        .kpi-card:hover { transform: translateY(-3px); border-color: var(--venus-accent); }
+        .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 800; color: var(--venus-deep); margin: 5px 0; }
+        .kpi-value.highlight { color: var(--venus-accent); }
+        .kpi-sub { font-size: 10px; color: var(--venus-blue); font-weight: 600; }
+
+        /* GRIDS & PANELS */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 8px; display: inline-block;}
         
         .chart-container { position: relative; width: 100%; height: 260px; }
-        
-        .table-wrap { max-height: 280px; overflow-y: auto; border: 1px solid var(--panel-border); border-radius: 8px; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 10px; text-align: left; }
-        .data-table thead th { position: sticky; top: 0; background-color: var(--venus-deep-blue); color: var(--white); padding: 8px; font-weight: bold; text-transform: uppercase; z-index: 1;}
-        .data-table td { padding: 8px; border-bottom: 1px solid var(--panel-border); font-weight: 600; color: var(--text-main); }
-        .data-table tr:hover { background-color: #F8F9FC; }
-        .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-yellow); font-weight: bold; text-align: center; font-size: 13px;}
-        .data-table .money { font-family: 'Space Mono', monospace; color: #2E7D32; font-weight: bold; text-align: right; font-size: 12px;}
-        .data-table .badge { background: #EDE9FE; color: var(--venus-blue); padding: 2px 6px; border-radius: 4px; font-size: 9px;}
 
-        /* CREATOR PROFILE */
-        .creator-section { background-color: var(--venus-blue); border: 2px solid var(--venus-yellow); border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(48, 43, 106, 0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; box-sizing: border-box; }
-        .creator-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255, 255, 255, 0.6); font-weight: bold; margin-bottom: 4px; }
-        .creator-avatar { width: 75px; height: 75px; border-radius: 50%; border: 2px solid var(--venus-yellow); object-fit: cover; object-position: center 15%; transition: transform 0.2s;}
-        .creator-info { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: rgba(255, 255, 255, 0.9); align-items: center; }
-        .creator-name { font-size: 15px; font-weight: bold; color: var(--venus-yellow); display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px; }
-        .flag-icon { width: 16px; border-radius: 2px; }
+        /* INTERACTIVE TABLES */
+        .table-wrap { max-height: 280px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 8px; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+        .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
+        .data-table td { padding: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
+        .clickable-row { cursor: pointer; transition: 0.2s; }
+        .clickable-row:hover { background: #EEF2FF; }
+        .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-deep); font-weight: bold; text-align: center; font-size: 14px;}
+        .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 12px;}
+        .data-table .badge { background: #FEF3C7; color: #D97706; padding: 2px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block;}
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<!-- TELA DE LOGIN -->
+<!-- LOGIN -->
 <div id="login-screen">
     <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/1a75aeb06adc8e2e8fbcba2fe4acebfbd0113d01/Venus_logo_OG_adj.2026_logo_sec.png" alt="VenusMedtech" class="login-logo">
-    <h2 class="login-title">Advanced BI Dashboard</h2>
-    <p class="login-subtitle">Enter corporate access password to continue</p>
-    
+    <h2 class="login-title">Interactive BI Analytics</h2>
+    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">Corporate Access Only</p>
     <form onsubmit="checkPassword(event)">
-        <input type="password" id="password-input" class="login-input" placeholder="••••••••" required autocomplete="off">
-        <button type="submit" class="login-btn">Access Analytics</button>
+        <input type="password" id="password-input" class="login-input" placeholder="Enter Password" required autocomplete="off">
+        <button type="submit" class="login-btn">Secure Login</button>
         <div id="error-msg" class="error-msg">Incorrect password. Please try again.</div>
     </form>
 </div>
 
-<!-- DASHBOARD CONTENT -->
-<div class="app-content" id="app-content">
+<!-- DASHBOARD -->
+<div id="app-content">
     
     <div class="top-bar">
         <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/1a75aeb06adc8e2e8fbcba2fe4acebfbd0113d01/Venus_logo_OG_adj.2026_logo_sec.png" alt="VenusMedtech" class="logo">
-        <div style="display:flex; gap:8px;" id="action-buttons">
-            <button class="btn-action export-btn" onclick="exportToPDF()">Export PDF Report</button>
-            <button class="btn-action" style="background-color:var(--venus-yellow); color:var(--venus-deep-blue);" onclick="location.reload()">Reset</button>
+        <div style="display:flex; gap:10px;" id="action-buttons">
+            <button class="btn-action export" onclick="exportToPDF()">Export to PDF</button>
+            <button class="btn-action reset" onclick="location.reload()">Upload New Data</button>
         </div>
     </div>
 
-    <!-- AREA DE UPLOAD -->
+    <!-- UPLOAD -->
     <div class="panel" id="upload-panel">
-        <h2 class="panel-title">LATAM DATA SYNCHRONIZATION</h2>
         <div class="upload-zone" onclick="document.getElementById('csv-file').click()">
-            <span>➕ UPLOAD SHAREPOINT DATA (CSV)</span>
-            <p>Ensure columns contain: Date, Country, Product, Implanter, Clinical Specialist, Proctor</p>
+            <h3>DRAG OR CLICK TO UPLOAD 'Implant_Data_LATAM.csv'</h3>
+            <p>The intelligence engine will automatically cross-reference and clean all clinical variations.</p>
             <input type="file" id="csv-file" accept=".csv" style="display:none;" onchange="handleFileUpload(event)">
         </div>
     </div>
 
-    <!-- PAINEL DE DADOS (OCULTO ATÉ O UPLOAD) -->
+    <!-- BI PANELS (HIDDEN UNTIL UPLOAD) -->
     <div id="dashboard-panels" class="hidden">
         
+        <!-- ACTIVE FILTERS -->
+        <div class="filter-bar" id="filter-bar">
+            <span class="filter-label">Active Filters:</span>
+            <div id="active-filters-container" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+        </div>
+
         <!-- KPIs -->
         <div class="grid-5">
             <div class="kpi-card">
-                <div class="kpi-title">YTD Implants</div>
-                <div class="kpi-value" id="kpi-total">0</div>
-                <div class="kpi-sub">Total Cases</div>
+                <div class="kpi-title">Implants (Filtered)</div>
+                <div class="kpi-value highlight" id="kpi-total">0</div>
+                <div class="kpi-sub">Total Cases Found</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-title">2026 Forecast</div>
-                <div class="kpi-value" id="kpi-forecast">0</div>
-                <div class="kpi-sub">Projected Year-End</div>
+                <div class="kpi-title">Proctor Fees ($2k)</div>
+                <div class="kpi-value" id="kpi-fees" style="color: var(--success);">$0</div>
+                <div class="kpi-sub">Excluding BR Cases</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Country</div>
-                <div class="kpi-value" id="kpi-top-country" style="font-size: 16px;">--</div>
+                <div class="kpi-value" id="kpi-top-country" style="font-size: 18px;">--</div>
                 <div class="kpi-sub">By Volume</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Technology</div>
-                <div class="kpi-value" id="kpi-top-valve" style="font-size: 16px;">--</div>
-                <div class="kpi-sub">Most Implanted</div>
+                <div class="kpi-value" id="kpi-top-valve" style="font-size: 18px;">--</div>
+                <div class="kpi-sub">Most Adopted</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Active Doctors</div>
@@ -172,103 +163,67 @@
             </div>
         </div>
 
-        <!-- CHARTS SECTION -->
-        <div class="grid-2">
+        <!-- CHARTS -->
+        <div class="grid-3">
             <div class="panel">
                 <h2 class="panel-title">TECHNOLOGY MIX</h2>
-                <div class="chart-container">
-                    <canvas id="mixChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="mixChart"></canvas></div>
             </div>
             <div class="panel">
-                <h2 class="panel-title">IMPLANTS BY COUNTRY</h2>
-                <div class="chart-container">
-                    <canvas id="countryChart"></canvas>
-                </div>
+                <h2 class="panel-title">COUNTRY DISTRIBUTION</h2>
+                <div class="chart-container"><canvas id="countryChart"></canvas></div>
+            </div>
+            <div class="panel">
+                <h2 class="panel-title">MONTHLY TREND</h2>
+                <div class="chart-container"><canvas id="trendChart"></canvas></div>
             </div>
         </div>
 
-        <div class="panel" style="margin-bottom: 15px;">
-            <h2 class="panel-title">IMPLANTS BY MONTH (TREND)</h2>
-            <div class="chart-container" style="height: 200px;">
-                <canvas id="trendChart"></canvas>
-            </div>
-        </div>
-
-        <!-- TABLES SECTION: SPECIALISTS & IMPLANTERS -->
+        <!-- TABLES -->
         <div class="grid-3">
-            
-            <!-- CLINICAL SPECIALISTS -->
+            <!-- SPECIALISTS -->
             <div class="panel">
                 <h2 class="panel-title">CLINICAL SPECIALISTS</h2>
                 <div class="table-wrap">
                     <table class="data-table" id="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Specialist</th>
-                                <th style="text-align: center;">Cases</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Specialist (Click to Filter)</th><th style="text-align:center;">Cases</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- IMPLANTERS (DOCTORS) -->
+            <!-- IMPLANTERS -->
             <div class="panel">
                 <h2 class="panel-title">TOP IMPLANTERS</h2>
                 <div class="table-wrap">
                     <table class="data-table" id="implants-table">
-                        <thead>
-                            <tr>
-                                <th>Doctor / Implanter</th>
-                                <th style="text-align: center;">Cases</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Doctor (Click to Filter)</th><th style="text-align:center;">Cases</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- PROCTOR PAYOUT -->
+            <!-- PROCTORS -->
             <div class="panel">
-                <h2 class="panel-title">PROCTOR PERFORMANCE & FEES</h2>
-                <div style="font-size: 8px; color: var(--text-grey); margin-top: -10px; margin-bottom: 10px;">* Brazil cases evaluated but excluded from payout calculation.</div>
+                <h2 class="panel-title">PROCTOR PAYOUTS</h2>
                 <div class="table-wrap">
                     <table class="data-table" id="proctor-table">
-                        <thead>
-                            <tr>
-                                <th>Proctor</th>
-                                <th style="text-align: center;">Vol</th>
-                                <th style="text-align: right;">Payout ($)</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Proctor (Click to Filter)</th><th style="text-align:center;">Vol</th><th style="text-align:right;">Payout</th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- PROFILE -->
-    <div class="creator-section">
-        <div class="creator-title">Intelligence & Analytics by</div>
-        <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/a2309b9d3a7fe352cb10acc6f1b9a4785fa8bb66/Image.jpeg" alt="Fabio Silva" class="creator-avatar">
-        <div class="creator-info">
-            <div class="creator-name">Fabio Silva <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/4a254e93a90f6225406d11dafa8c519437a99e9b/Bandeira-Nacionalsi%CC%81mbolo-maior-da-Pa%CC%81tria-Brasileira-Foto-Divulgac%CC%A7a%CC%83o.jpg" alt="Brazil" class="flag-icon"></div>
-            <div>✉️ fabio.dasilva@venusmedtech.eu | 📞 +55 11 97410-3530</div>
-        </div>
-    </div>
-
 </div>
 
 <script>
-    // Registrar o Plugin de DataLabels globalmente
+    // Configuração Global da Extensão de Texto (Datalabels)
     Chart.register(ChartDataLabels);
     Chart.defaults.set('plugins.datalabels', {
         color: '#FFFFFF',
-        font: { weight: 'bold', family: 'Space Mono', size: 11 },
-        textShadowColor: 'rgba(0,0,0,0.5)',
+        font: { weight: 'bold', family: 'Space Mono', size: 12 },
+        textShadowColor: 'rgba(0,0,0,0.6)',
         textShadowBlur: 4
     });
 
@@ -285,30 +240,96 @@
     }
 
     /* =================================================================
-       PARSER DE CSV À PROVA DE FALHAS
+       GLOBAL STATE & INTERACTIVITY
        ================================================================= */
-    function parseCSVLine(text, delimiter) {
-        let ret = []; let inQuote = false; let value = '';
-        for (let i = 0; i < text.length; i++) {
-            let char = text[i];
-            if (inQuote) {
-                if (char === '"') {
-                    if (i < text.length - 1 && text[i+1] === '"') { value += '"'; i++; } 
-                    else { inQuote = false; }
-                } else { value += char; }
-            } else {
-                if (char === '"') { inQuote = true; }
-                else if (char === delimiter) { ret.push(value.trim()); value = ''; }
-                else { value += char; }
-            }
-        }
-        ret.push(value.trim());
-        return ret;
+    let globalCases = [];
+    let currentFilters = {};
+    let mixChart, countryChart, trendChart;
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    function toggleFilter(key, value) {
+        if (currentFilters[key] === value) delete currentFilters[key];
+        else currentFilters[key] = value;
+        updateDashboard();
+    }
+
+    function clearFilters() {
+        currentFilters = {};
+        updateDashboard();
     }
 
     /* =================================================================
-       MOTORES DE NORMALIZAÇÃO
+       NORMALIZATION INTELLIGENCE (ARRAYS FOR MULTIPLE NAMES)
        ================================================================= */
+    // Essa função resolve o problema da Laura! Ela lê a célula "Fábio + Laura" e retorna um array ["Fabio Silva", "Laura Zemp"]. 
+    // Assim, ambos ganham pontuação individual no Dashboard.
+    function normalizeSpecialists(rawSpec) {
+        if (!rawSpec || rawSpec === 'nan' || rawSpec.trim() === '') return ["Unknown Specialist"];
+        let n = rawSpec.toLowerCase().trim();
+        let found = [];
+        
+        if (n.includes("fabio") || n.includes("fábio") || n.includes("silva")) found.push("Fabio Silva");
+        if (n.includes("laura") || n.includes("zemp")) found.push("Laura Zemp");
+        if (n.includes("stephanie") || n.includes("bugueño") || n.includes("bugueno") || n.includes("stephie")) found.push("Stephanie Bugueño");
+        if (n.includes("erika") || n.includes("érika") || n.includes("rangel")) found.push("Érika Rangel");
+        if (n.includes("alice")) found.push("Alice Moraes");
+        if (n.includes("mariana")) found.push("Mariana Martinez");
+        if (n.includes("michelle")) found.push("Michelle Altamirano");
+        if (n.includes("cesar") || n.includes("césar") || n.includes("pintos")) found.push("Cesar Pintos");
+        if (n.includes("ricardo")) found.push("Ricardo Lisboa");
+        if (n.includes("fernanda") || n.includes("cisneros")) found.push("Fernanda Cisneros");
+        if (n.includes("adeyanira") || n.includes("hernandez") || n.includes("hernández")) found.push("Adeyanira Hernandez");
+        if (n.includes("grosso") || n.includes("sonia")) found.push("Sonia Grosso");
+        if (n.includes("navarro") || n.includes("francisco")) found.push("Francisco Navarro");
+        if (n.includes("godoy") || n.includes("leonardo")) found.push("Leonardo Godoy");
+        if (n.includes("loaiza") || n.includes("luis gabriel")) found.push("Luis Gabriel Loaiza");
+        if (n.includes("rivarola") || n.includes("marcelo")) found.push("Marcelo Rivarola");
+        if (n.includes("ariane")) found.push("Ariane");
+
+        if (found.length === 0) {
+            found.push(rawSpec.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
+        }
+        return found;
+    }
+
+    function normalizeDoctor(rawName) {
+        if (!rawName || rawName === 'nan' || rawName.trim() === '') return ["Unknown Doctor"];
+        let n = rawName.toLowerCase().trim();
+        let found = [];
+
+        if (n.includes("brahi") || n.includes("barhi")) found.push("Dr. Juan Pablo De Brahi");
+        if (n.includes("spaletra")) found.push("Dr. Pablo Spaletra");
+        if (n.includes("knebel") || n.includes("alexis") || n.includes("vasiluk") || n.includes("alexia")) found.push("Dr. Alexis Knebel");
+        if (n.includes("montenegro") || n.includes("montegro")) found.push("Dr. Márcio Montenegro");
+        if (n.includes("quintela") || n.includes("quintella") || n.includes("edgar")) found.push("Dr. Edgard Quintella");
+        if (n.includes("garay")) found.push("Dr. Francisco Garay");
+        if (n.includes("caramori")) found.push("Dr. Paulo Caramori");
+        if (n.includes("pineda")) found.push("Dr. Fernando Pineda");
+        if (n.includes("rivarola")) found.push("Dr. Marcelo Rivarola");
+        if (n.includes("magno")) found.push("Dr. Alexandre Magno");
+        if (n.includes("montes") || n.includes("gm")) found.push("Dr. José Antonio García Montes");
+        if (n.includes("springmuller") || n.includes("spingmüller")) found.push("Dr. Daniel Springmuller");
+        if (n.includes("baccaro")) found.push("Dr. Jorge Baccaro");
+        if (n.includes("fuchs")) found.push("Dr. Felipe Fuchs");
+        if (n.includes("salazar")) found.push("Dr. David Salazar");
+        if (n.includes("lucini") || n.includes("luccini")) found.push("Dr. Victorio Lucini");
+        if (n.includes("peñaloza") || n.includes("peñolazo") || n.includes("facundo")) found.push("Dr. Facundo Peñaloza");
+        if (n.includes("sandoval")) found.push("Dr. Jorge Sandoval");
+        if (n.includes("mosquera")) found.push("Dr. Walter Mosquera");
+        if (n.includes("cressa")) found.push("Dr. Luis Cressa");
+        if (n.includes("kei")) found.push("Dr. Eduardo Kei");
+        if (n.includes("jimenez") || n.includes("jiménez")) found.push("Dr. Gian Manuel Jimenez");
+        if (n.includes("macias")) found.push("Dr. Francisco Macias");
+        if (n.includes("gustavo") && !n.includes("moles")) found.push("Dr. Gustavo");
+        if (n.includes("dauvergne")) found.push("Dr. Christian Dauvergne");
+        if (n.includes("hermida")) found.push("Dr. Martin Hermida");
+
+        if (found.length === 0) {
+            found.push(rawName.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
+        }
+        return found;
+    }
+
     function normalizeCountry(rawCountry) {
         if (!rawCountry || rawCountry === 'nan') return "Unknown";
         let c = rawCountry.toLowerCase().trim();
@@ -320,217 +341,202 @@
         return rawCountry.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
     }
 
-    function normalizeSpecialist(rawSpec) {
-        if (!rawSpec || rawSpec === 'nan' || rawSpec.trim() === '') return "Other Specialists";
-        let n = rawSpec.toLowerCase().trim();
-        if (n.includes("fabio") || n.includes("fábio")) return "Fabio Silva";
-        if (n.includes("stephanie") || n.includes("bugueño") || n.includes("bugueno")) return "Stephanie Bugueño";
-        if (n.includes("erika") || n.includes("érika") || n.includes("rangel")) return "Érika Rangel";
-        return rawSpec.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-    }
-
-    function normalizeName(rawName) {
-        if (!rawName || rawName === 'nan' || rawName.trim() === '') return null;
-        let name = rawName.toLowerCase().trim();
-        
-        // Nomes Comuns de Proctors e Médicos
-        if (name.includes("brahi") || name.includes("barhi")) return "Dr. Juan Pablo De Brahi";
-        if (name.includes("spaletra")) return "Dr. Pablo Spaletra";
-        if (name.includes("knebel") || name.includes("alexis") || name.includes("vasiluk")) return "Dr. Alexis Knebel";
-        if (name.includes("montenegro") || name.includes("montegro")) return "Dr. Márcio Montenegro";
-        if (name.includes("quintela") || name.includes("quintella") || name.includes("edgar")) return "Dr. Edgard Quintella";
-        if (name.includes("garay")) return "Dr. Francisco Garay";
-        if (name.includes("caramori")) return "Dr. Paulo Caramori";
-        if (name.includes("pineda")) return "Dr. Fernando Pineda";
-        if (name.includes("rivarola")) return "Dr. Marcelo Rivarola";
-        if (name.includes("magno")) return "Dr. Alexandre Magno";
-        if (name.includes("montes") || name.includes("gm")) return "Dr. José Antonio García Montes";
-        if (name.includes("springmuller")) return "Dr. Daniel Springmuller";
-        if (name.includes("baccaro")) return "Dr. Jorge Baccaro";
-        
-        return rawName.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-    }
-
     function normalizeValve(rawValve) {
         if (!rawValve || rawValve === 'nan') return "Other";
         let v = rawValve.toLowerCase();
         if (v.includes("vitae") || v.includes("ab")) return "Venus Vitae";
         if (v.includes("venusa") || v.includes("venus_a") || v.includes("apro")) return "VenusA-Valve";
         if (v.includes("powerx") || v.includes("px")) return "Venus PowerX";
-        if (v.includes("venusp") || v.includes("venus_p") || v.includes("p2") || v.includes("p3")) return "VenusP-Valve";
+        if (v.includes("venusp") || v.includes("venus_p") || v.includes("p2") || v.includes("p3") || v.includes("plus")) return "VenusP-Valve";
         return "Other";
     }
 
-    function parseCSV(csvText) {
-        const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== "");
-        if (lines.length === 0) return [];
-        
-        const commas = (lines[0].match(/,/g) || []).length;
-        const semis = (lines[0].match(/;/g) || []).length;
-        const delimiter = semis > commas ? ";" : ",";
-        
-        const headers = parseCSVLine(lines[0], delimiter).map(h => h.toLowerCase().trim());
-        
-        const idxDate = headers.findIndex(h => h.includes("date") || h.includes("data"));
-        const idxCountry = headers.findIndex(h => h.includes("country") || h.includes("país") || h.includes("pais"));
-        const idxValve = headers.findIndex(h => h.includes("product") || h.includes("valve"));
-        const idxProctor = headers.findIndex(h => h.includes("proctor"));
-        const idxImplanter = headers.findIndex(h => h.includes("implanter") || h.includes("operador"));
-        const idxSpec = headers.findIndex(h => h.includes("specialist") || h.includes("especialista"));
-
-        let cases = [];
-        for (let i = 1; i < lines.length; i++) {
-            let cols = parseCSVLine(lines[i], delimiter);
-            if (cols.length < 5) continue;
-            
-            let dateStr = cols[idxDate] || "";
-            let month = -1;
-            if (dateStr.includes("T")) dateStr = dateStr.split("T")[0];
-            let parts = dateStr.split(/[-/]/);
-            if (parts.length >= 3) {
-                if (parts[0].length === 4) month = parseInt(parts[1]) - 1;
-                else month = parseInt(parts[0]) - 1; 
+    function parseCSVLine(text, delimiter) {
+        let ret = []; let inQuote = false; let value = '';
+        for (let i = 0; i < text.length; i++) {
+            let char = text[i];
+            if (inQuote) {
+                if (char === '"') {
+                    if (i < text.length - 1 && text[i+1] === '"') { value += '"'; i++; } else { inQuote = false; }
+                } else { value += char; }
+            } else {
+                if (char === '"') { inQuote = true; } else if (char === delimiter) { ret.push(value.trim()); value = ''; } else { value += char; }
             }
-
-            cases.push({
-                month: (month >= 0 && month <= 11) ? month : 0,
-                country: normalizeCountry(cols[idxCountry]),
-                valve: normalizeValve(cols[idxValve]),
-                proctor: normalizeName(cols[idxProctor]),
-                implanter: normalizeName(cols[idxImplanter]),
-                specialist: normalizeSpecialist(cols[idxSpec])
-            });
         }
-        return cases;
+        ret.push(value.trim());
+        return ret;
     }
 
     function handleFileUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = function(e) { generateDashboard(parseCSV(e.target.result)); };
+        reader.onload = function(e) { 
+            const lines = e.target.result.split(/\r?\n/).filter(line => line.trim() !== "");
+            if (lines.length === 0) return;
+            const delimiter = (lines[0].match(/;/g) || []).length > (lines[0].match(/,/g) || []).length ? ";" : ",";
+            const headers = parseCSVLine(lines[0], delimiter).map(h => h.toLowerCase().trim());
+            
+            const idxDate = headers.findIndex(h => h.includes("date") || h.includes("data"));
+            const idxCountry = headers.findIndex(h => h.includes("country") || h.includes("país"));
+            const idxValve = headers.findIndex(h => h.includes("product") || h.includes("valve"));
+            const idxProctor = headers.findIndex(h => h.includes("proctor"));
+            const idxImplanter = headers.findIndex(h => h.includes("implanter") || h.includes("operador"));
+            const idxSpec = headers.findIndex(h => h.includes("specialist") || h.includes("especialista"));
+
+            let parsedCases = [];
+            for (let i = 1; i < lines.length; i++) {
+                let cols = parseCSVLine(lines[i], delimiter);
+                if (cols.length < 5) continue;
+                
+                let dateStr = cols[idxDate] || ""; let month = -1;
+                if (dateStr.includes("T")) dateStr = dateStr.split("T")[0];
+                let parts = dateStr.split(/[-/]/);
+                if (parts.length >= 3) {
+                    if (parts[0].length === 4) month = parseInt(parts[1]) - 1;
+                    else month = parseInt(parts[0]) - 1; 
+                }
+
+                parsedCases.push({
+                    id: i, // ID único para filtro
+                    monthName: (month >= 0 && month <= 11) ? monthNames[month] : "Unknown",
+                    country: normalizeCountry(cols[idxCountry]),
+                    valve: normalizeValve(cols[idxValve]),
+                    proctors: normalizeDoctor(cols[idxProctor]), // Agora é ARRAY
+                    implanters: normalizeDoctor(cols[idxImplanter]), // Agora é ARRAY
+                    specialists: normalizeSpecialists(cols[idxSpec]) // Agora é ARRAY
+                });
+            }
+            globalCases = parsedCases;
+            document.getElementById('upload-panel').style.display = 'none';
+            document.getElementById('dashboard-panels').classList.remove('hidden');
+            updateDashboard();
+        };
         reader.readAsText(file);
     }
 
-    let mixChart, trendChart, countryChart;
+    /* =================================================================
+       ATUALIZAÇÃO DE UI E CROSS-FILTERING (A MÁGICA DO POWER BI)
+       ================================================================= */
+    function updateDashboard() {
+        // 1. Renderiza a barra de filtros
+        const filterContainer = document.getElementById('active-filters-container');
+        filterContainer.innerHTML = '';
+        const keys = Object.keys(currentFilters);
+        if(keys.length === 0) {
+            filterContainer.innerHTML = '<span style="font-size:11px; color:#64748B;">No filters active. Click on any chart or table row to slice the data.</span>';
+        } else {
+            keys.forEach(k => {
+                filterContainer.innerHTML += `<div class="filter-chip" onclick="toggleFilter('${k}', '${currentFilters[k]}')">${k.toUpperCase()}: ${currentFilters[k]} <span>×</span></div>`;
+            });
+            filterContainer.innerHTML += `<button onclick="clearFilters()" style="background:none; border:none; color:var(--danger); font-size:11px; font-weight:bold; cursor:pointer; text-decoration:underline;">Clear All Filters</button>`;
+        }
 
-    function generateDashboard(cases) {
-        document.getElementById('upload-panel').style.display = 'none';
-        document.getElementById('dashboard-panels').classList.remove('hidden');
-
-        /* ==================== 1. PROCESSAMENTO DE DADOS ==================== */
-        const total = cases.length;
-        document.getElementById('kpi-total').innerText = total;
-        document.getElementById('kpi-forecast').innerText = Math.round((total / 7.5) * 12);
-
-        let valves = {}, countries = {}, implanters = {}, specs = {}, proctors = {};
-        
-        cases.forEach(c => {
-            // Válvulas
-            valves[c.valve] = (valves[c.valve] || 0) + 1;
-            // Países
-            countries[c.country] = (countries[c.country] || 0) + 1;
-            // Implanters
-            if(c.implanter) implanters[c.implanter] = (implanters[c.implanter] || 0) + 1;
-            // Especialistas
-            specs[c.specialist] = (specs[c.specialist] || 0) + 1;
-            
-            // Proctors (com regra do Brasil)
-            if(c.proctor) {
-                if (!proctors[c.proctor]) proctors[c.proctor] = { total: 0, paidCases: 0 };
-                proctors[c.proctor].total++;
-                if (c.country !== "Brazil") proctors[c.proctor].paidCases++;
+        // 2. Filtra a Base Global
+        let filtered = globalCases.filter(c => {
+            for (let k in currentFilters) {
+                if (k === 'specialists' || k === 'proctors' || k === 'implanters') {
+                    if (!c[k].includes(currentFilters[k])) return false;
+                } else {
+                    if (c[k] !== currentFilters[k]) return false;
+                }
             }
+            return true;
         });
 
-        // KPIs Top
+        // 3. Agregação Dinâmica
+        const total = filtered.length;
+        document.getElementById('kpi-total').innerText = total;
+
+        let valves = {}, countries = {}, implanters = {}, specs = {}, proctors = {}, monthCounts = new Array(12).fill(0);
+        let totalFees = 0;
+
+        filtered.forEach(c => {
+            valves[c.valve] = (valves[c.valve] || 0) + 1;
+            countries[c.country] = (countries[c.country] || 0) + 1;
+            
+            // Loop para arrays de pessoas (Resolve a pulverização de dados)
+            c.specialists.forEach(s => { if(s !== "Unknown Specialist") specs[s] = (specs[s] || 0) + 1; });
+            c.implanters.forEach(i => { if(i !== "Unknown Doctor") implanters[i] = (implanters[i] || 0) + 1; });
+            
+            c.proctors.forEach(p => {
+                if(p !== "Unknown Doctor") {
+                    if (!proctors[p]) proctors[p] = { total: 0, paidCases: 0 };
+                    proctors[p].total++;
+                    if (c.country !== "Brazil") {
+                        proctors[p].paidCases++;
+                        totalFees += 2000;
+                    }
+                }
+            });
+
+            let mIdx = monthNames.indexOf(c.monthName);
+            if (mIdx !== -1) monthCounts[mIdx]++;
+        });
+
+        // Atualiza KPIs Superiores
+        document.getElementById('kpi-fees').innerText = "$" + totalFees.toLocaleString();
         document.getElementById('kpi-top-valve').innerText = Object.keys(valves).length ? Object.keys(valves).reduce((a, b) => valves[a] > valves[b] ? a : b) : "--";
         document.getElementById('kpi-top-country').innerText = Object.keys(countries).length ? Object.keys(countries).reduce((a, b) => countries[a] > countries[b] ? a : b) : "--";
         document.getElementById('kpi-doctors').innerText = Object.keys(implanters).length;
 
-        /* ==================== 2. PREENCHIMENTO DAS TABELAS ==================== */
-        
-        // A. Especialistas Clínicos
-        let tbSpec = document.querySelector('#spec-table tbody');
-        tbSpec.innerHTML = '';
-        Object.entries(specs).sort((a, b) => b[1] - a[1]).forEach(([name, count]) => {
-            tbSpec.innerHTML += `<tr><td>${name === 'Fabio Silva' ? '<b>Fabio Silva ⭐</b>' : name}</td><td class="val">${count}</td></tr>`;
-        });
+        // 4. Renderiza Tabelas Clicáveis
+        function renderTable(tableId, dataObj, filterKey, isProctor = false) {
+            let tbody = document.querySelector(`#${tableId} tbody`);
+            tbody.innerHTML = '';
+            Object.entries(dataObj).sort((a, b) => (isProctor ? b[1].total - a[1].total : b[1] - a[1])).forEach(([name, val]) => {
+                // Highlight especial para Fabio Silva
+                let display = (name === 'Fabio Silva') ? '⭐ Fabio Silva' : name;
+                let bgClass = (currentFilters[filterKey] === name) ? 'style="background:#E0E7FF;"' : '';
+                
+                if (isProctor) {
+                    let fee = val.paidCases * 2000;
+                    let badge = (val.total > val.paidCases) ? `<br><span class="badge">Excl. BR</span>` : ``;
+                    tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display} ${badge}</td><td class="val">${val.total}</td><td class="money">$${fee.toLocaleString()}</td></tr>`;
+                } else {
+                    tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display}</td><td class="val">${val}</td></tr>`;
+                }
+            });
+        }
+        renderTable('spec-table', specs, 'specialists');
+        renderTable('implants-table', implanters, 'implanters');
+        renderTable('proctor-table', proctors, 'proctors', true);
 
-        // B. Implanters (Top 10 para caber bonito)
-        let tbImplants = document.querySelector('#implants-table tbody');
-        tbImplants.innerHTML = '';
-        Object.entries(implanters).sort((a, b) => b[1] - a[1]).slice(0, 15).forEach(([name, count]) => {
-            tbImplants.innerHTML += `<tr><td>${name}</td><td class="val">${count}</td></tr>`;
-        });
-
-        // C. Proctors & Fees (Excluindo Brasil do Pgto)
-        let tbProctors = document.querySelector('#proctor-table tbody');
-        tbProctors.innerHTML = '';
-        let sortedProctors = Object.entries(proctors).sort((a, b) => b[1].total - a[1].total);
-        
-        sortedProctors.forEach(([name, stats]) => {
-            let fee = stats.paidCases * 2000;
-            let badge = (stats.total > stats.paidCases) ? `<span class="badge">BR Cases Excluded</span>` : ``;
-            tbProctors.innerHTML += `
-                <tr>
-                    <td>${name} <br>${badge}</td>
-                    <td class="val">${stats.total}</td>
-                    <td class="money">$${fee.toLocaleString()}</td>
-                </tr>
-            `;
-        });
-
-        /* ==================== 3. GRÁFICOS (CHART.JS COM LABELS) ==================== */
-        
-        // Plugin Formatter comum para porcentagem
-        const pieLabelFormatter = (value, ctx) => {
-            let sum = 0;
-            let dataArr = ctx.chart.data.datasets[0].data;
-            dataArr.map(data => { sum += data; });
-            let percentage = (value*100 / sum).toFixed(1)+"%";
-            return `${value} (${percentage})`;
+        // 5. Atualiza Gráficos (Chart.js)
+        const pieFormatter = (value, ctx) => {
+            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+            return sum > 0 ? `${value} (${(value*100 / sum).toFixed(1)}%)` : '';
         };
 
-        // Gráfico 1: Technology Mix
-        const ctxMix = document.getElementById('mixChart').getContext('2d');
+        const chartClick = (filterKey) => (evt, elements, chart) => {
+            if (elements.length > 0) toggleFilter(filterKey, chart.data.labels[elements[0].index]);
+        };
+
+        // Mix Chart
         if(mixChart) mixChart.destroy();
-        mixChart = new Chart(ctxMix, {
+        mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
             type: 'doughnut',
-            data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'] }] },
-            options: { 
-                responsive: true, maintainAspectRatio: false,
-                plugins: { datalabels: { formatter: pieLabelFormatter } }
-            }
+            data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280'] }] },
+            options: { responsive: true, maintainAspectRatio: false, onClick: chartClick('valve'), plugins: { datalabels: { formatter: pieFormatter } } }
         });
 
-        // Gráfico 2: Country
-        const ctxCountry = document.getElementById('countryChart').getContext('2d');
+        // Country Chart
         if(countryChart) countryChart.destroy();
-        countryChart = new Chart(ctxCountry, {
+        countryChart = new Chart(document.getElementById('countryChart').getContext('2d'), {
             type: 'pie',
             data: { labels: Object.keys(countries), datasets: [{ data: Object.values(countries), backgroundColor: ['#302B6A', '#E68A2E', '#171434', '#4B5563', '#10B981'] }] },
-            options: { 
-                responsive: true, maintainAspectRatio: false,
-                plugins: { datalabels: { formatter: pieLabelFormatter } }
-            }
+            options: { responsive: true, maintainAspectRatio: false, onClick: chartClick('country'), plugins: { datalabels: { formatter: pieFormatter } } }
         });
 
-        // Gráfico 3: Trend
-        let months = new Array(12).fill(0);
-        cases.forEach(c => { if(!isNaN(c.month) && c.month >= 0) months[c.month]++; });
-        const ctxTrend = document.getElementById('trendChart').getContext('2d');
+        // Trend Chart
         if(trendChart) trendChart.destroy();
-        trendChart = new Chart(ctxTrend, {
+        trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
             type: 'bar',
-            data: {
-                labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-                datasets: [{ label: 'Implants', data: months, backgroundColor: '#302B6A', borderRadius: 4 }]
-            },
+            data: { labels: monthNames, datasets: [{ label: 'Implants', data: monthCounts, backgroundColor: '#302B6A', borderRadius: 6 }] },
             options: { 
-                responsive: true, maintainAspectRatio: false,
-                plugins: { datalabels: { align: 'end', anchor: 'end', color: '#302B6A', font: {size: 14}, textShadowBlur: 0, formatter: (v) => v > 0 ? v : '' } },
-                scales: { y: { suggestedMax: Math.max(...months) * 1.2 } }
+                responsive: true, maintainAspectRatio: false, onClick: chartClick('monthName'),
+                plugins: { datalabels: { align: 'end', anchor: 'end', color: '#171434', textShadowBlur: 0, font: {size: 14}, formatter: (v) => v > 0 ? v : '' } },
+                scales: { y: { suggestedMax: Math.max(...monthCounts) * 1.2 } }
             }
         });
     }
@@ -540,15 +546,10 @@
         const container = document.getElementById('app-content');
         container.classList.add('pdf-print-mode');
         
-        const opt = {
-            margin: [10, 10, 10, 10], 
-            filename: 'Advanced_LATAM_Dashboard.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 }, 
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(container).save().then(() => {
+        html2pdf().set({
+            margin: [10, 10, 10, 10], filename: 'Venus_PowerBI_Report.pdf', image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(container).save().then(() => {
             container.classList.remove('pdf-print-mode');
             document.getElementById('action-buttons').style.display = 'flex';
         });
