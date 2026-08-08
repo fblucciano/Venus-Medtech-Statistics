@@ -62,36 +62,35 @@
         .filter-chip:hover { background: #FEE2E2; color: var(--danger); border-color: #FECACA; }
         .filter-chip span { margin-left: 6px; font-weight: 900; }
 
-        /* EQUIDISTANT GRIDS (PERFECT ALIGNMENT) */
-        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; box-sizing: border-box;}
+        /* EQUIDISTANT GRIDS (ALTURAS IGUAIS E PERFEITAS) */
+        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; align-items: stretch; }
+        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 130px; box-sizing: border-box;}
         .valve-card:hover { transform: translateY(-4px); border-color: var(--venus-blue); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .valve-card.active { border-color: var(--venus-accent); background: #FFF7ED; transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(230,138,46,0.2); }
-        .valve-img { height: 70px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); transition: transform 0.3s;}
+        .valve-img { height: 50px; object-fit: contain; margin-bottom: 4px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); transition: transform 0.3s;}
         .valve-card:hover .valve-img { transform: scale(1.08); }
-        .valve-name { font-size: 12px; font-weight: 800; color: var(--venus-deep); margin-bottom: 2px; text-transform: uppercase;}
-        .valve-count { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: bold; color: var(--venus-accent); }
+        .valve-name { font-size: 11px; font-weight: 800; color: var(--venus-deep); margin-bottom: 2px; text-transform: uppercase;}
+        .valve-count { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: bold; color: var(--venus-accent); }
         .valve-card.active .valve-name { color: var(--venus-accent); }
 
-        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; box-sizing: border-box; }
-        .kpi-title { font-size: 10.5px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 800; color: var(--venus-deep); margin: 8px 0; text-align: center; width: 100%; line-height: 1.1;}
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; align-items: stretch; }
+        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 110px; box-sizing: border-box; }
+        .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 800; color: var(--venus-deep); margin: 4px 0; text-align: center; width: 100%; line-height: 1.1;}
         .kpi-value.highlight { color: var(--venus-accent); }
-        .kpi-sub { font-size: 10px; color: var(--venus-blue); font-weight: 700; }
+        .kpi-sub { font-size: 9.5px; color: var(--venus-blue); font-weight: 700; }
 
         /* GRIDS & PANELS */
-        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: stretch; }
+        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: stretch; }
         .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; box-sizing: border-box; height: 100%; }
         
-        /* CENTERED TITLES */
         .panel-header { text-align: center; margin-bottom: 15px; width: 100%; }
         .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 6px; display: inline-block; letter-spacing: 0.5px;}
         
         .chart-container { position: relative; width: 100%; flex-grow: 1; min-height: 240px; display: flex; flex-direction: column; justify-content: center;}
 
-        /* NATIVE HTML RANKING BAR (NOVO) */
+        /* HTML RANKING BAR */
         .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 12px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
         .html-ranking-row:hover { background-color: #EEF2FF; }
         .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: var(--venus-deep); margin-bottom: 6px; }
@@ -100,8 +99,8 @@
         .html-ranking-track { width: 100%; background: #E2E8F0; border-radius: 4px; height: 10px; overflow: hidden; }
         .html-ranking-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
 
-        /* INTERACTIVE TABLES */
-        .table-wrap { flex-grow: 1; max-height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        /* TABLES */
+        .table-wrap { flex-grow: 1; max-height: 280px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 280px; }
         .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 12px 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
         .data-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
@@ -111,18 +110,15 @@
         .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 13px;}
         .data-table .badge { background: #FEF3C7; color: #D97706; padding: 3px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block; font-weight:bold;}
         .data-table .flag-icon { font-size: 16px; margin-right: 6px; vertical-align: middle; }
-        
         .medal { font-size: 16px; margin-right: 6px; }
 
         .hidden { display: none !important; }
         
-        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 8px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
         ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-        /* RESPONSIVE DESIGN */
         @media (max-width: 1024px) {
             .grid-5 { grid-template-columns: repeat(3, 1fr); }
             .grid-3-charts { grid-template-columns: 1fr 1fr; }
@@ -131,7 +127,7 @@
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
             .grid-5 { grid-template-columns: 1fr 1fr; }
-            .grid-5 .kpi-card:last-child { grid-column: span 2; } /* Centraliza o último KPI no mobile */
+            .grid-5 .kpi-card:last-child { grid-column: span 2; }
             .grid-3-charts { grid-template-columns: 1fr; }
             .grid-3-charts .panel:last-child { grid-column: auto; }
             .grid-2-tables { grid-template-columns: 1fr; }
@@ -139,7 +135,7 @@
             .top-bar { flex-direction: column; gap: 12px; align-items: center; } 
             #action-buttons { width: 100%; display: flex; gap: 8px;}
             .btn-action { flex: 1; text-align: center; padding: 12px 10px;}
-            .kpi-value { font-size: 24px; }
+            .kpi-value { font-size: 22px; }
             .logo { max-width: 180px; } 
         }
     </style>
@@ -178,7 +174,7 @@
         </div>
     </div>
 
-    <!-- BI PANELS (HIDDEN UNTIL UPLOAD) -->
+    <!-- BI PANELS -->
     <div id="dashboard-panels" class="hidden">
         
         <!-- ACTIVE FILTERS -->
@@ -225,12 +221,12 @@
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Country</div>
-                <div class="kpi-value" id="kpi-top-country">--</div>
+                <div class="kpi-value" id="kpi-top-country" style="font-size: 22px;">--</div>
                 <div class="kpi-sub">By Volume</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Hospital</div>
-                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 16px; line-height: 1.3;">--</div>
+                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 14px; line-height: 1.2;">--</div>
                 <div class="kpi-sub">Most Active Center</div>
             </div>
             <div class="kpi-card">
@@ -242,28 +238,22 @@
 
         <!-- CHARTS -->
         <div class="grid-3-charts">
-            <!-- GRÁFICO 1: Custom Legend Doughnut -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">TECHNOLOGY MIX</h2></div>
                 <div class="chart-container"><canvas id="mixChart"></canvas></div>
             </div>
-            <!-- GRÁFICO 2: Native HTML Ranking Bar (ADEUS PIZZA) -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">COUNTRY RANKING</h2></div>
-                <div class="chart-container" id="country-ranking-container" style="justify-content: flex-start; overflow-y: auto;">
-                    <!-- Preenchido via JS -->
-                </div>
+                <div class="chart-container" id="country-ranking-container" style="justify-content: flex-start; overflow-y: auto;"></div>
             </div>
-            <!-- GRÁFICO 3: Trend -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">MONTHLY TREND</h2></div>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
             </div>
         </div>
 
-        <!-- TABLES (2x2 GRID) -->
+        <!-- TABLES -->
         <div class="grid-2-tables">
-            <!-- HOSPITALS -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">HOSPITAL RANKING</h2></div>
                 <div class="table-wrap">
@@ -274,7 +264,6 @@
                 </div>
             </div>
 
-            <!-- SPECIALISTS -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">CLINICAL SPECIALISTS</h2></div>
                 <div class="table-wrap">
@@ -285,7 +274,6 @@
                 </div>
             </div>
 
-            <!-- IMPLANTERS -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">TOP IMPLANTERS</h2></div>
                 <div class="table-wrap">
@@ -296,7 +284,6 @@
                 </div>
             </div>
 
-            <!-- PROCTORS RANKING -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">PROCTOR RANKING & PAYOUTS</h2></div>
                 <div class="table-wrap">
@@ -311,7 +298,6 @@
 </div>
 
 <script>
-    // Configurações Globais Limpas para o Chart.js
     Chart.register(ChartDataLabels);
     Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 
@@ -386,7 +372,7 @@
     }
 
     function normalizeDoctor(rawName) {
-        if (!rawName || rawName === 'nan' || rawName.trim() === '') return ["Unknown Doctor"];
+        if (!rawName || rawName === 'nan' || rawName.trim() === '' || rawName === 'True' || rawName === 'False') return ["Unknown Doctor"];
         let n = rawName.toLowerCase().trim();
         let found = [];
 
@@ -497,7 +483,7 @@
             const idxCountry = headers.findIndex(h => h.includes("country") || h.includes("país"));
             const idxHosp = headers.findIndex(h => h.includes("hospital") || h.includes("centro") || h.includes("centre"));
             const idxValve = headers.findIndex(h => h.includes("product") || h.includes("valve"));
-            const idxProctor = headers.findIndex(h => h.includes("proctor"));
+            const idxProctor = headers.findIndex(h => h === "proctor"); // Nome exato da coluna Proctor
             const idxImplanter = headers.findIndex(h => h.includes("implanter") || h.includes("operador"));
             const idxSpec = headers.findIndex(h => h.includes("specialist") || h.includes("especialista"));
 
@@ -615,7 +601,7 @@
             }
         });
 
-        // ================= NOVO: NATIVE HTML PROGRESS BARS PARA PAÍSES =================
+        // HTML PROGRESS BARS PARA PAÍSES
         let sortedCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]);
         const countryColors = ['#302B6A', '#E68A2E', '#171434', '#6B7280', '#10B981', '#3B82F6', '#F59E0B'];
         let cHtml = '';
@@ -636,7 +622,7 @@
         });
         document.getElementById('country-ranking-container').innerHTML = cHtml;
 
-        // Tabelas de Pessoas (com Medalhas para Proctors)
+        // Tabelas
         function renderTable(tableId, dataObj, filterKey, isProctor = false, countryMap = {}) {
             let tbody = document.querySelector(`#${tableId} tbody`);
             tbody.innerHTML = '';
@@ -648,7 +634,6 @@
                 let bgClass = (currentFilters[filterKey] === name) ? 'style="background:#EEF2FF;"' : '';
                 
                 if (isProctor) {
-                    // PÓDIO DE PROCTORS (RANKING VISUAL)
                     let medal = '';
                     if (index === 0) medal = '<span class="medal">🥇</span>';
                     else if (index === 1) medal = '<span class="medal">🥈</span>';
@@ -670,8 +655,7 @@
         renderTable('implants-table', implanters, 'implanters', false, implC);
         renderTable('proctor-table', proctors, 'proctors', true, procC);
 
-        // ================= GRÁFICOS (CHART.JS) =================
-        // DOUGHNUT (MIX) - SEM NÚMEROS, LEGENDA CUSTOMIZADA ABAIXO
+        // GRÁFICO DOUGHNUT (MIX)
         if(mixChart) mixChart.destroy();
         mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
             type: 'doughnut',
@@ -699,7 +683,7 @@
             }
         });
 
-        // BARRA VERTICAL (TENDÊNCIA)
+        // GRÁFICO TREND
         if(trendChart) trendChart.destroy();
         trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
             type: 'bar',
