@@ -208,7 +208,6 @@
 </div>
 
 <script>
-    // SENHA
     const MASTER_PASSWORD = "venus2026";
 
     function checkPassword(event) {
@@ -222,15 +221,36 @@
     }
 
     /* =================================================================
-       MOTOR DE LIMPEZA E INTELIGÊNCIA DE DADOS CUSTOMIZADO
+       PARSER DE CSV À PROVA DE FALHAS (IGNORA VÍRGULAS EM TEXTOS)
        ================================================================= */
-    
-    // Normalização Inteligente (Mapeado exatamente para o seu arquivo)
+    function parseCSVLine(text, delimiter) {
+        let ret = [];
+        let inQuote = false;
+        let value = '';
+        for (let i = 0; i < text.length; i++) {
+            let char = text[i];
+            if (inQuote) {
+                if (char === '"') {
+                    if (i < text.length - 1 && text[i+1] === '"') { value += '"'; i++; } 
+                    else { inQuote = false; }
+                } else { value += char; }
+            } else {
+                if (char === '"') { inQuote = true; }
+                else if (char === delimiter) { ret.push(value.trim()); value = ''; }
+                else { value += char; }
+            }
+        }
+        ret.push(value.trim());
+        return ret;
+    }
+
+    /* =================================================================
+       NORMALIZAÇÃO (Dicionário de Nomes e Válvulas)
+       ================================================================= */
     function normalizeProctorName(rawName) {
-        if (!rawName || rawName === 'nan' || rawName === 'NaN' || rawName.trim() === '') return null;
+        if (!rawName || rawName === 'nan' || rawName === 'NaN' || rawName === '') return null;
         let name = rawName.toLowerCase().trim();
         
-        // Dicionário de Sinônimos Exatos da LATAM
         if (name.includes("brahi") || name.includes("barhi")) return "Dr. Juan Pablo De Brahi";
         if (name.includes("spaletra")) return "Dr. Pablo Spaletra";
         if (name.includes("knebel") || name.includes("alexis") || name.includes("vasiluk") || name.includes("alexia")) return "Dr. Alexis Knebel";
@@ -244,12 +264,21 @@
         if (name.includes("montes") || name.includes("gm")) return "Dr. José Antonio García Montes";
         if (name.includes("springmuller")) return "Dr. Daniel Springmuller";
         if (name.includes("baccaro")) return "Dr. Jorge Baccaro";
+        if (name.includes("cressa")) return "Dr. Luis Cressa";
+        if (name.includes("mosquera")) return "Dr. Walter Mosquera";
+        if (name.includes("kei")) return "Dr. Eduardo Kei";
+        if (name.includes("jimenez")) return "Dr. Gian Manuel Jimenez";
+        if (name.includes("macias")) return "Dr. Francisco Macias";
+        if (name.includes("sandoval")) return "Dr. Jorge Sandoval";
+        if (name.includes("salazar")) return "Dr. David Salazar";
+        if (name.includes("lucini")) return "Dr. Victorio Lucini";
+        if (name.includes("peñaloza") || name.includes("facundo")) return "Dr. Facundo Peñaloza";
+        if (name.includes("fuchs")) return "Dr. Felipe Fuchs";
+        if (name.includes("gustavo")) return "Dr. Gustavo";
         
-        // Fallback: Capitaliza a primeira letra de cada palavra
         return rawName.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
     }
 
-    // Normalização de Modelos de Válvulas do seu SharePoint
     function normalizeValve(rawValve) {
         if (!rawValve || rawValve === 'nan' || rawValve === 'NaN') return "Other";
         let v = rawValve.toLowerCase();
@@ -262,36 +291,41 @@
 
     function parseCSV(csvText) {
         const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== "");
-        const delimiter = lines[0].includes(";") ? ";" : ",";
-        const headers = lines[0].split(delimiter).map(h => h.trim().toLowerCase());
+        if (lines.length === 0) return [];
         
-        // Busca baseada nos cabeçalhos exatos do seu arquivo
-        const idxDate = headers.indexOf("date");
-        const idxValve = headers.indexOf("product");
-        const idxProctor = headers.indexOf("proctor");
+        // Detecta delimitador dinamicamente
+        const commas = (lines[0].match(/,/g) || []).length;
+        const semis = (lines[0].match(/;/g) || []).length;
+        const delimiter = semis > commas ? ";" : ",";
+        
+        const headers = parseCSVLine(lines[0], delimiter).map(h => h.toLowerCase());
+        
+        // Mapeamento dinâmico de colunas
+        const idxDate = headers.findIndex(h => h.includes("date") || h.includes("data"));
+        const idxValve = headers.findIndex(h => h.includes("product") || h.includes("valve") || h.includes("model"));
+        const idxProctor = headers.findIndex(h => h.includes("proctor"));
 
         let cases = [];
         for (let i = 1; i < lines.length; i++) {
-            // RegEx para não quebrar colunas caso haja vírgulas dentro de aspas no CSV
-            let cols = lines[i].split(new RegExp(delimiter + '(?=(?:(?:[^"]*"){2})*[^"]*$)'));
-            if (cols.length <= Math.max(idxDate, idxValve, idxProctor)) continue;
+            let cols = parseCSVLine(lines[i], delimiter);
+            if (cols.length < 5) continue; // Pula linhas quebradas
             
-            // Pega o mês (supondo formato YYYY-MM-DD ou M/D/YYYY do seu arquivo)
-            let dateStr = cols[idxDate] ? cols[idxDate].replace(/"/g, "") : "";
+            // Leitura à prova de falhas de Datas (SharePoint LATAM exporta como M/D/YYYY)
+            let dateStr = cols[idxDate] || "";
             let month = -1;
             
-            if (dateStr.includes("-")) {
-                let parts = dateStr.split("-");
-                if(parts[0].length === 4) month = parseInt(parts[1]) - 1; // Formato YYYY-MM-DD
-            } else if (dateStr.includes("/")) {
-                let parts = dateStr.split("/");
-                month = parseInt(parts[0]) - 1; // O seu CSV veio no formato M/D/YYYY
+            if (dateStr.includes("T")) dateStr = dateStr.split("T")[0];
+            let parts = dateStr.split(/[-/]/);
+            
+            if (parts.length >= 3) {
+                if (parts[0].length === 4) month = parseInt(parts[1]) - 1; // Formato YYYY-MM-DD
+                else month = parseInt(parts[0]) - 1; // Formato M/D/YYYY
             }
 
             cases.push({
-                month: month >= 0 && month <= 11 ? month : 0,
-                valve: normalizeValve(cols[idxValve] ? cols[idxValve].replace(/"/g, "") : ""),
-                proctor: normalizeProctorName(cols[idxProctor] ? cols[idxProctor].replace(/"/g, "") : "")
+                month: (month >= 0 && month <= 11) ? month : 0, // Fallback para Jan caso a data seja bizarra
+                valve: normalizeValve(cols[idxValve]),
+                proctor: normalizeProctorName(cols[idxProctor])
             });
         }
         return cases;
@@ -319,7 +353,6 @@
         const total = cases.length;
         document.getElementById('kpi-total').innerText = total;
 
-        // Projeção Inteligente (Assumindo Agosto - Mês 8)
         const forecast = Math.round((total / 7.5) * 12);
         document.getElementById('kpi-forecast').innerText = forecast;
 
