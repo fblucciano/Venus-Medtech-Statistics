@@ -40,10 +40,10 @@
         .login-btn:hover { background: var(--venus-blue); transform: translateY(-2px); }
 
         /* DASHBOARD LAYOUT */
-        #app-content { display: none; width: 100%; max-width: 1080px; flex-direction: column; gap: 18px; box-sizing: border-box; }
+        #app-content { display: none; width: 100%; max-width: 1080px; flex-direction: column; gap: 15px; box-sizing: border-box; }
         #app-content.pdf-print-mode { max-width: 1080px !important; width: 1080px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
-        .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.03);}
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
         .logo { height: 32px; }
         .btn-action { background: var(--venus-deep); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-action.export { background: var(--success); }
@@ -51,7 +51,7 @@
         
         .upload-zone { border: 2px dashed var(--venus-blue); border-radius: 12px; background: #EEF2FF; padding: 40px; text-align: center; cursor: pointer; transition: 0.3s; }
         .upload-zone:hover { background: #E0E7FF; border-color: var(--venus-accent); }
-        .upload-zone h3 { margin: 0; color: var(--venus-deep); font-size: 16px; text-transform: uppercase; }
+        .upload-zone h3 { margin: 0; color: var(--venus-deep); font-size: 16px; }
         .upload-zone p { margin: 5px 0 0 0; color: var(--text-muted); font-size: 12px; }
 
         /* ACTIVE FILTERS BAR */
@@ -61,7 +61,16 @@
         .filter-chip:hover { background: var(--danger); }
         .filter-chip span { margin-left: 6px; color: var(--venus-accent); font-weight: 900; }
 
-        /* VALVE INTERACTIVE CARDS (NEW) */
+        /* KPIs */
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 5px; }
+        .kpi-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.2s; }
+        .kpi-card:hover { transform: translateY(-3px); border-color: var(--venus-accent); }
+        .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 800; color: var(--venus-deep); margin: 5px 0; }
+        .kpi-value.highlight { color: var(--venus-accent); }
+        .kpi-sub { font-size: 10px; color: var(--venus-blue); font-weight: 600; }
+
+        /* VALVE INTERACTIVE CARDS */
         .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center;}
         .valve-card:hover { transform: translateY(-4px); border-color: var(--venus-blue); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
@@ -72,40 +81,68 @@
         .valve-count { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: bold; color: var(--venus-accent); }
         .valve-card.active .valve-name { color: var(--venus-accent); }
 
-        /* KPIs */
-        .grid-4-kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 15px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); }
-        .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-value { font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 800; color: var(--venus-deep); margin: 8px 0; }
-        .kpi-value.highlight { color: var(--venus-accent); }
-        .kpi-sub { font-size: 10px; color: var(--venus-blue); font-weight: 700; }
-
         /* GRIDS & PANELS */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .panel-title { color: var(--venus-deep); font-size: 12px; font-weight: 800; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 8px; display: inline-block;}
+        .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 8px; display: inline-block;}
         
         .chart-container { position: relative; width: 100%; height: 260px; }
 
         /* INTERACTIVE TABLES */
-        .table-wrap { max-height: 280px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 8px; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+        .table-wrap { max-height: 280px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 250px; }
         .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
         .data-table td { padding: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
         .clickable-row { cursor: pointer; transition: 0.2s; }
         .clickable-row:hover { background: #EEF2FF; }
         .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-deep); font-weight: bold; text-align: center; font-size: 14px;}
         .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 12px;}
-        .data-table .badge { background: #FEF3C7; color: #D97706; padding: 3px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block; font-weight:bold;}
+        .data-table .badge { background: #FEF3C7; color: #D97706; padding: 2px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block;}
+
+        /* CREATOR PROFILE */
+        .creator-section { background-color: var(--venus-blue); border: 2px solid var(--venus-yellow); border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(48, 43, 106, 0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; box-sizing: border-box; margin-top: 10px; }
+        .creator-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255, 255, 255, 0.6); font-weight: bold; margin-bottom: 4px; }
+        .creator-avatar { width: 75px; height: 75px; border-radius: 50%; border: 2px solid var(--venus-yellow); object-fit: cover; object-position: center 15%; transition: transform 0.2s;}
+        .creator-info { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: rgba(255, 255, 255, 0.9); align-items: center; }
+        .creator-name { font-size: 15px; font-weight: bold; color: var(--venus-yellow); display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px; }
+        .flag-icon { width: 16px; border-radius: 2px; }
 
         .hidden { display: none !important; }
         
         /* SCROLLBAR CUSTOMIZATION */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 8px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
         ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        /* RESPONSIVE DESIGN (MOBILE & TABLET) */
+        @media (max-width: 1024px) {
+            .grid-5 { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .grid-5 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .grid-valves { grid-template-columns: repeat(2, 1fr); } /* 2 Válvulas por linha no mobile */
+            
+            .top-bar { flex-direction: column; gap: 12px; align-items: stretch; }
+            #action-buttons { width: 100%; display: flex; gap: 8px; justify-content: stretch;}
+            .btn-action { flex: 1; text-align: center; }
+            
+            .kpi-value { font-size: 22px; }
+            .upload-zone { padding: 20px 10px; }
+            .upload-zone h3 { font-size: 13px; }
+            .panel { padding: 15px 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .grid-5 { grid-template-columns: 1fr; }
+            .filter-bar { flex-direction: column; align-items: flex-start; }
+            #active-filters-container { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -127,9 +164,9 @@
     
     <div class="top-bar">
         <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/1a75aeb06adc8e2e8fbcba2fe4acebfbd0113d01/Venus_logo_OG_adj.2026_logo_sec.png" alt="VenusMedtech" class="logo">
-        <div style="display:flex; gap:10px;" id="action-buttons">
-            <button class="btn-action export" onclick="exportToPDF()">Export PDF Report</button>
-            <button class="btn-action reset" onclick="location.reload()">Reset Data</button>
+        <div id="action-buttons">
+            <button class="btn-action export" onclick="exportToPDF()">Export to PDF</button>
+            <button class="btn-action reset" onclick="location.reload()">Upload New Data</button>
         </div>
     </div>
 
@@ -176,7 +213,7 @@
         </div>
 
         <!-- KPIs -->
-        <div class="grid-4-kpi">
+        <div class="grid-5">
             <div class="kpi-card">
                 <div class="kpi-title">Implants (Filtered)</div>
                 <div class="kpi-value highlight" id="kpi-total">0</div>
@@ -189,8 +226,13 @@
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Country</div>
-                <div class="kpi-value" id="kpi-top-country" style="font-size: 24px;">--</div>
+                <div class="kpi-value" id="kpi-top-country" style="font-size: 18px;">--</div>
                 <div class="kpi-sub">By Volume</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Top Technology</div>
+                <div class="kpi-value" id="kpi-top-valve" style="font-size: 18px;">--</div>
+                <div class="kpi-sub">Most Adopted</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Active Doctors</div>
@@ -247,10 +289,19 @@
             </div>
         </div>
     </div>
+    
+    <!-- PROFILE -->
+    <div class="creator-section">
+        <div class="creator-title">Intelligence & Analytics by</div>
+        <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/a2309b9d3a7fe352cb10acc6f1b9a4785fa8bb66/Image.jpeg" alt="Fabio Silva" class="creator-avatar">
+        <div class="creator-info">
+            <div class="creator-name">Fabio Silva <img src="https://raw.githubusercontent.com/fblucciano/imagens-venus/4a254e93a90f6225406d11dafa8c519437a99e9b/Bandeira-Nacionalsi%CC%81mbolo-maior-da-Pa%CC%81tria-Brasileira-Foto-Divulgac%CC%A7a%CC%83o.jpg" alt="Brazil" class="flag-icon"></div>
+            <div>✉️ fabio.dasilva@venusmedtech.eu | 📞 +55 11 97410-3530</div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // Configuração Global da Extensão de Texto (Datalabels)
     Chart.register(ChartDataLabels);
     Chart.defaults.set('plugins.datalabels', {
         color: '#FFFFFF',
@@ -271,9 +322,6 @@
         }
     }
 
-    /* =================================================================
-       GLOBAL STATE & INTERACTIVITY
-       ================================================================= */
     let globalCases = [];
     let currentFilters = {};
     let countryChart, trendChart;
@@ -290,10 +338,6 @@
         updateDashboard();
     }
 
-    /* =================================================================
-       NORMALIZATION INTELLIGENCE (ARRAYS FOR MULTIPLE NAMES)
-       ================================================================= */
-    // Separa e consolida múltiplos nomes na mesma célula
     function normalizeSpecialists(rawSpec) {
         if (!rawSpec || rawSpec === 'nan' || rawSpec.trim() === '') return ["Unknown Specialist"];
         let n = rawSpec.toLowerCase().trim();
@@ -317,9 +361,7 @@
         if (n.includes("rivarola") || n.includes("marcelo")) found.push("Marcelo Rivarola");
         if (n.includes("ariane")) found.push("Ariane");
 
-        if (found.length === 0) {
-            found.push(rawSpec.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
-        }
+        if (found.length === 0) found.push(rawSpec.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
         return found;
     }
 
@@ -355,9 +397,7 @@
         if (n.includes("dauvergne")) found.push("Dr. Christian Dauvergne");
         if (n.includes("hermida")) found.push("Dr. Martin Hermida");
 
-        if (found.length === 0) {
-            found.push(rawName.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
-        }
+        if (found.length === 0) found.push(rawName.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
         return found;
     }
 
@@ -446,11 +486,7 @@
         reader.readAsText(file);
     }
 
-    /* =================================================================
-       ATUALIZAÇÃO DE UI E CROSS-FILTERING (A MÁGICA DO POWER BI)
-       ================================================================= */
     function updateDashboard() {
-        // 1. Renderiza a barra de filtros
         const filterContainer = document.getElementById('active-filters-container');
         filterContainer.innerHTML = '';
         const keys = Object.keys(currentFilters);
@@ -463,7 +499,6 @@
             filterContainer.innerHTML += `<button onclick="clearFilters()" style="background:none; border:none; color:var(--danger); font-size:11px; font-weight:bold; cursor:pointer; text-decoration:underline; margin-left:10px;">Clear All</button>`;
         }
 
-        // 2. Filtra a Base Global
         let filtered = globalCases.filter(c => {
             for (let k in currentFilters) {
                 if (k === 'specialists' || k === 'proctors' || k === 'implanters') {
@@ -475,7 +510,6 @@
             return true;
         });
 
-        // 3. Agregação Dinâmica
         const total = filtered.length;
         document.getElementById('kpi-total').innerText = total;
 
@@ -493,10 +527,7 @@
                 if(p !== "Unknown Doctor") {
                     if (!proctors[p]) proctors[p] = { total: 0, paidCases: 0 };
                     proctors[p].total++;
-                    if (c.country !== "Brazil") {
-                        proctors[p].paidCases++;
-                        totalFees += 2000;
-                    }
+                    if (c.country !== "Brazil") { proctors[p].paidCases++; totalFees += 2000; }
                 }
             });
 
@@ -504,30 +535,24 @@
             if (mIdx !== -1) monthCounts[mIdx]++;
         });
 
-        // Atualiza KPIs Superiores
         document.getElementById('kpi-fees').innerText = "$" + totalFees.toLocaleString();
+        document.getElementById('kpi-top-valve').innerText = Object.keys(valves).length ? Object.keys(valves).reduce((a, b) => valves[a] > valves[b] ? a : b) : "--";
         document.getElementById('kpi-top-country').innerText = Object.keys(countries).length ? Object.keys(countries).reduce((a, b) => countries[a] > countries[b] ? a : b) : "--";
         document.getElementById('kpi-doctors').innerText = Object.keys(implanters).length;
 
-        // Atualiza os Cards das Válvulas (Imagens)
         ['Venus Vitae', 'VenusA-Valve', 'Venus PowerX', 'VenusP-Valve'].forEach(v => {
             let el = document.getElementById('card-' + v);
-            let countEl = document.getElementById('count-' + v.split(' ')[1] || v.split('-')[0]); // Fallback para ID
-            
-            // Set counts
             if(v === 'Venus Vitae') document.getElementById('count-Vitae').innerText = valves[v] || 0;
             if(v === 'VenusA-Valve') document.getElementById('count-VenusA').innerText = valves[v] || 0;
             if(v === 'Venus PowerX') document.getElementById('count-PowerX').innerText = valves[v] || 0;
             if(v === 'VenusP-Valve') document.getElementById('count-VenusP').innerText = valves[v] || 0;
 
-            // Set active class
             if (el) {
                 if (currentFilters['valve'] === v) el.classList.add('active');
                 else el.classList.remove('active');
             }
         });
 
-        // 4. Renderiza Tabelas Clicáveis
         function renderTable(tableId, dataObj, filterKey, isProctor = false) {
             let tbody = document.querySelector(`#${tableId} tbody`);
             tbody.innerHTML = '';
@@ -548,7 +573,6 @@
         renderTable('implants-table', implanters, 'implanters');
         renderTable('proctor-table', proctors, 'proctors', true);
 
-        // 5. Atualiza Gráficos (Chart.js)
         const pieFormatter = (value, ctx) => {
             let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
             return sum > 0 ? `${value} (${(value*100 / sum).toFixed(1)}%)` : '';
@@ -558,7 +582,6 @@
             if (elements.length > 0) toggleFilter(filterKey, chart.data.labels[elements[0].index]);
         };
 
-        // Country Chart
         if(countryChart) countryChart.destroy();
         countryChart = new Chart(document.getElementById('countryChart').getContext('2d'), {
             type: 'pie',
@@ -566,7 +589,6 @@
             options: { responsive: true, maintainAspectRatio: false, onClick: chartClick('country'), plugins: { datalabels: { formatter: pieFormatter } } }
         });
 
-        // Trend Chart
         if(trendChart) trendChart.destroy();
         trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
             type: 'bar',
