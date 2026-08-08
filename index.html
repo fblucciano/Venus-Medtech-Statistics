@@ -9,9 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Bibliotecas de Gráfico, Labels e PDF -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- Biblioteca para Exportar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -40,7 +38,7 @@
         .login-btn:hover { background: var(--venus-blue); transform: translateY(-2px); }
         .error-msg { color: var(--danger); font-size: 12px; margin-top: 15px; display: none; font-weight: bold; }
 
-        /* DASHBOARD LAYOUT BLINDADO PARA MOBILE/ROTACIONAMENTO */
+        /* DASHBOARD LAYOUT BLINDADO CONTRA ROTACIONAMENTO */
         #app-content { display: none; width: 100%; max-width: 1160px; flex-direction: column; gap: 16px; box-sizing: border-box; }
         #app-content.pdf-print-mode { max-width: 1160px !important; width: 1160px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
@@ -63,8 +61,8 @@
         .filter-chip span { margin-left: 6px; font-weight: 900; }
 
         /* GRIDS FLEXÍVEIS E EQUIDISTANTES */
-        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; box-sizing: border-box; }
-        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 120px; box-sizing: border-box;}
+        .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; box-sizing: border-box; width: 100%; }
+        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 120px; box-sizing: border-box; min-width: 0;}
         .valve-card:hover { transform: translateY(-2px); border-color: var(--venus-blue); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
         .valve-card.active { border-color: var(--venus-accent); background: #FFF7ED; transform: translateY(-2px); }
         .valve-img { height: 48px; object-fit: contain; margin-bottom: 4px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
@@ -72,34 +70,33 @@
         .valve-count { font-family: 'Space Mono', monospace; font-size: 16px; font-weight: bold; color: var(--venus-accent); }
         .valve-card.active .valve-name { color: var(--venus-accent); }
 
-        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; box-sizing: border-box; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; align-items: center; min-height: 105px; box-sizing: border-box; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; box-sizing: border-box; width: 100%; }
+        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; align-items: center; min-height: 105px; box-sizing: border-box; min-width: 0; }
         .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .kpi-value { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 800; color: var(--venus-deep); margin: 4px 0; text-align: center; width: 100%; line-height: 1.1; word-break: break-word;}
         .kpi-value.highlight { color: var(--venus-accent); }
         .kpi-sub { font-size: 9.5px; color: var(--venus-blue); font-weight: 700; }
 
         /* GRIDS & PANELS */
-        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; box-sizing: border-box; }
-        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; box-sizing: border-box; }
-        .panel { background: var(--card-bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; box-sizing: border-box; }
+        .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; box-sizing: border-box; width: 100%; }
+        .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; box-sizing: border-box; width: 100%; }
+        .panel { background: var(--card-bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; box-sizing: border-box; min-width: 0; }
         
         .panel-header { text-align: center; margin-bottom: 12px; width: 100%; }
         .panel-title { color: var(--venus-deep); font-size: 12px; font-weight: 800; margin: 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 5px; display: inline-block; letter-spacing: 0.5px;}
         
-        .chart-container { position: relative; width: 100%; height: 230px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;}
+        .chart-container { position: relative; width: 100%; flex-grow: 1; min-height: 220px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; overflow-y: auto;}
 
-        /* HTML RANKING BAR */
+        /* HTML RANKING BAR (USADO PARA PAÍSES E VÁLVULAS) */
         .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 10px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
         .html-ranking-row:hover { background-color: #EEF2FF; }
         .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800; color: var(--venus-deep); margin-bottom: 4px; }
-        .html-ranking-flag { font-size: 15px; margin-right: 6px; vertical-align: middle; }
         .html-ranking-data { font-family: 'Space Mono', monospace; color: var(--venus-blue); font-size: 12px;}
         .html-ranking-track { width: 100%; background: #E2E8F0; border-radius: 4px; height: 8px; overflow: hidden; }
         .html-ranking-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 
         /* TABLES */
-        .table-wrap { flex-grow: 1; max-height: 260px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        .table-wrap { flex-grow: 1; max-height: 260px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; box-sizing: border-box;}
         .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 260px; box-sizing: border-box; }
         .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 10px 8px; font-weight: bold; text-transform: uppercase; z-index: 1;}
         .data-table td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
@@ -117,7 +114,7 @@
         ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
 
-        /* MEDIA QUERIES APERFEIÇOADAS PARA Rotação Portrait/Landscape */
+        /* MEDIA QUERIES BLINDADAS PARA PORTRAIT E LANDSCAPE */
         @media (max-width: 1024px) {
             .grid-5 { grid-template-columns: repeat(3, 1fr); }
             .grid-5 .kpi-card:nth-child(4), .grid-5 .kpi-card:nth-child(5) { grid-column: span 1; }
@@ -238,14 +235,17 @@
 
         <!-- CHARTS -->
         <div class="grid-3-charts">
+            <!-- GRÁFICO 1: HTML Ranking Bar para Technology Mix (Substituiu a Rosca) -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">TECHNOLOGY MIX</h2></div>
-                <div class="chart-container"><canvas id="mixChart"></canvas></div>
+                <div class="chart-container" id="mix-ranking-container" style="justify-content: flex-start; overflow-y: auto;"></div>
             </div>
+            <!-- GRÁFICO 2: HTML Ranking Bar para Countries -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">COUNTRY RANKING</h2></div>
                 <div class="chart-container" id="country-ranking-container" style="justify-content: flex-start; overflow-y: auto;"></div>
             </div>
+            <!-- GRÁFICO 3: Monthly Trend -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">MONTHLY TREND</h2></div>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
@@ -316,7 +316,7 @@
 
     let globalCases = [];
     let currentFilters = {};
-    let mixChart, trendChart;
+    let trendChart;
     const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     const FLAGS = {
@@ -576,7 +576,6 @@
                     proctors[p].total++;
                     if(!procC[p]) procC[p] = {}; procC[p][c.country] = (procC[p][c.country] || 0) + 1;
                     
-                    // REGRA DE PROCTORIA: Recebe se o caso foi NO EXTERIOR (País diferente de Brazil)
                     if (c.country !== "Brazil") { 
                         proctors[p].paidCases++; 
                         totalFees += 2000; 
@@ -606,7 +605,28 @@
             }
         });
 
-        // HTML PROGRESS BARS PARA PAÍSES
+        // ================= HTML RANKING BAR PARA TECHNOLOGY MIX =================
+        let sortedValves = Object.entries(valves).sort((a, b) => b[1] - a[1]);
+        const valveColors = ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'];
+        let vHtml = '';
+        sortedValves.forEach((v, idx) => {
+             let pct = total > 0 ? (v[1]/total*100).toFixed(1) : 0;
+             let bgClass = (currentFilters['valve'] === v[0]) ? 'background-color: #EEF2FF;' : '';
+             let color = valveColors[idx % valveColors.length];
+             vHtml += `
+             <div class="html-ranking-row" style="${bgClass}" onclick="toggleFilter('valve', '${v[0]}')">
+                 <div class="html-ranking-labels">
+                     <div>${v[0]}</div>
+                     <div class="html-ranking-data">${v[1]} <span style="color:#64748B; font-size:10px;">(${pct}%)</span></div>
+                 </div>
+                 <div class="html-ranking-track">
+                     <div class="html-ranking-fill" style="width: ${pct}%; background: ${color};"></div>
+                 </div>
+             </div>`;
+        });
+        document.getElementById('mix-ranking-container').innerHTML = vHtml;
+
+        // ================= HTML RANKING BAR PARA COUNTRY =================
         let sortedCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]);
         const countryColors = ['#302B6A', '#E68A2E', '#171434', '#6B7280', '#10B981', '#3B82F6', '#F59E0B'];
         let cHtml = '';
@@ -617,7 +637,7 @@
              cHtml += `
              <div class="html-ranking-row" style="${bgClass}" onclick="toggleFilter('country', '${c[0]}')">
                  <div class="html-ranking-labels">
-                     <div><span class="html-ranking-flag">${FLAGS[c[0]] || ''}</span>${c[0]}</div>
+                     <div><span style="margin-right:6px;">${FLAGS[c[0]] || ''}</span>${c[0]}</div>
                      <div class="html-ranking-data">${c[1]} <span style="color:#64748B; font-size:10px;">(${pct}%)</span></div>
                  </div>
                  <div class="html-ranking-track">
@@ -647,7 +667,6 @@
 
                     let display = `${medal} <span class="flag-icon">${flag}</span> ${name}`;
                     let fee = val.paidCases * 2000;
-                    // Aviso se teve casos no Brasil (sem proctoria local)
                     let badge = (val.total > val.paidCases) ? `<br><span class="badge" style="margin-left:26px;">BR Cases (No Fee)</span>` : ``;
                     tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display} ${badge}</td><td class="val">${val.total}</td><td class="money">$${fee.toLocaleString()}</td></tr>`;
                 } else {
@@ -660,34 +679,6 @@
         renderTable('spec-table', specs, 'specialists', false, specC);
         renderTable('implants-table', implanters, 'implanters', false, implC);
         renderTable('proctor-table', proctors, 'proctors', true, procC);
-
-        // GRÁFICO DOUGHNUT (MIX)
-        if(mixChart) mixChart.destroy();
-        mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
-            type: 'doughnut',
-            data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'], borderWidth: 2 }] },
-            options: { 
-                responsive: true, maintainAspectRatio: false, cutout: '65%', 
-                plugins: { 
-                    datalabels: { display: false }, 
-                    legend: { 
-                        position: 'bottom', align: 'start', 
-                        labels: { 
-                            padding: 10, font: {family: 'Space Mono', size: 10.5}, color: '#1E293B',
-                            generateLabels: (chart) => {
-                                const data = chart.data; const t = data.datasets[0].data.reduce((a,b)=>a+b,0);
-                                return data.labels.map((lbl, i) => {
-                                    const v = data.datasets[0].data[i]; const pct = t > 0 ? (v*100/t).toFixed(1)+'%' : '0%';
-                                    return { text: `${lbl}: ${v} (${pct})`, fillStyle: data.datasets[0].backgroundColor[i], index: i };
-                                });
-                            }
-                        },
-                        onClick: (e, legendItem, legend) => { toggleFilter('valve', legend.chart.data.labels[legendItem.index]); }
-                    } 
-                },
-                onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('valve', chart.data.labels[elements[0].index]); }
-            }
-        });
 
         // GRÁFICO TREND
         if(trendChart) trendChart.destroy();
