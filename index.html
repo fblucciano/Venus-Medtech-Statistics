@@ -41,8 +41,8 @@
         .error-msg { color: var(--danger); font-size: 12px; margin-top: 15px; display: none; font-weight: bold; }
 
         /* DASHBOARD LAYOUT */
-        #app-content { display: none; width: 100%; max-width: 1140px; flex-direction: column; gap: 20px; box-sizing: border-box; }
-        #app-content.pdf-print-mode { max-width: 1140px !important; width: 1140px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
+        #app-content { display: none; width: 100%; max-width: 1160px; flex-direction: column; gap: 20px; box-sizing: border-box; }
+        #app-content.pdf-print-mode { max-width: 1160px !important; width: 1160px !important; display: flex !important; padding: 15px !important; margin: 0 !important; background: white;}
 
         .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
         .logo { height: 32px; object-fit: contain; max-width: 200px; }
@@ -56,50 +56,63 @@
         .upload-zone p { margin: 5px 0 0 0; color: var(--text-muted); font-size: 12px; }
 
         /* ACTIVE FILTERS BAR */
-        .filter-bar { background: var(--card-bg); padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .filter-bar { background: var(--card-bg); padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .filter-label { font-size: 11px; font-weight: bold; color: var(--text-muted); text-transform: uppercase; }
         .filter-chip { display: inline-flex; align-items: center; background: #EEF2FF; color: var(--venus-blue); border: 1px solid #C7D2FE; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s;}
         .filter-chip:hover { background: #FEE2E2; color: var(--danger); border-color: #FECACA; }
         .filter-chip span { margin-left: 6px; font-weight: 900; }
 
-        /* VALVE INTERACTIVE CARDS */
+        /* EQUIDISTANT GRIDS (PERFECT ALIGNMENT) */
         .grid-valves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center;}
+        .valve-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; box-sizing: border-box;}
         .valve-card:hover { transform: translateY(-4px); border-color: var(--venus-blue); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .valve-card.active { border-color: var(--venus-accent); background: #FFF7ED; transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(230,138,46,0.2); }
-        .valve-img { height: 75px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); transition: transform 0.3s;}
+        .valve-img { height: 70px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); transition: transform 0.3s;}
         .valve-card:hover .valve-img { transform: scale(1.08); }
         .valve-name { font-size: 12px; font-weight: 800; color: var(--venus-deep); margin-bottom: 2px; text-transform: uppercase;}
         .valve-count { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: bold; color: var(--venus-accent); }
         .valve-card.active .valve-name { color: var(--venus-accent); }
 
-        /* KPIs */
         .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
-        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 15px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); }
-        .kpi-title { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi-value { font-family: 'Space Mono', monospace; font-size: 32px; font-weight: 800; color: var(--venus-deep); margin: 8px 0; }
+        .kpi-card { background: linear-gradient(145deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 10px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; box-sizing: border-box; }
+        .kpi-title { font-size: 10.5px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 800; color: var(--venus-deep); margin: 8px 0; text-align: center; width: 100%; line-height: 1.1;}
         .kpi-value.highlight { color: var(--venus-accent); }
         .kpi-sub { font-size: 10px; color: var(--venus-blue); font-weight: 700; }
 
         /* GRIDS & PANELS */
         .grid-3-charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
         .grid-2-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 8px; display: inline-block;}
+        .panel { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; box-sizing: border-box; height: 100%; }
         
-        .chart-container { position: relative; width: 100%; height: 260px; }
+        /* CENTERED TITLES */
+        .panel-header { text-align: center; margin-bottom: 15px; width: 100%; }
+        .panel-title { color: var(--venus-deep); font-size: 13px; font-weight: 800; margin: 0; text-transform: uppercase; border-bottom: 3px solid var(--venus-accent); padding-bottom: 6px; display: inline-block; letter-spacing: 0.5px;}
+        
+        .chart-container { position: relative; width: 100%; flex-grow: 1; min-height: 240px; display: flex; flex-direction: column; justify-content: center;}
+
+        /* NATIVE HTML RANKING BAR (NOVO) */
+        .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 12px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
+        .html-ranking-row:hover { background-color: #EEF2FF; }
+        .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 800; color: var(--venus-deep); margin-bottom: 6px; }
+        .html-ranking-flag { font-size: 16px; margin-right: 6px; vertical-align: middle; }
+        .html-ranking-data { font-family: 'Space Mono', monospace; color: var(--venus-blue); font-size: 13px;}
+        .html-ranking-track { width: 100%; background: #E2E8F0; border-radius: 4px; height: 10px; overflow: hidden; }
+        .html-ranking-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
 
         /* INTERACTIVE TABLES */
-        .table-wrap { max-height: 280px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        .table-wrap { flex-grow: 1; max-height: 300px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; min-width: 280px; }
-        .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
-        .data-table td { padding: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
+        .data-table thead th { position: sticky; top: 0; background: var(--venus-deep); color: white; padding: 12px 10px; font-weight: bold; text-transform: uppercase; z-index: 1;}
+        .data-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-dark); font-weight: 600;}
         .clickable-row { cursor: pointer; transition: 0.2s; }
         .clickable-row:hover { background: #EEF2FF; }
         .data-table .val { font-family: 'Space Mono', monospace; color: var(--venus-deep); font-weight: bold; text-align: center; font-size: 14px;}
-        .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 12px;}
+        .data-table .money { font-family: 'Space Mono', monospace; color: var(--success); font-weight: bold; text-align: right; font-size: 13px;}
         .data-table .badge { background: #FEF3C7; color: #D97706; padding: 3px 6px; border-radius: 4px; font-size: 9px; margin-top:4px; display:inline-block; font-weight:bold;}
-        .data-table .flag-icon { font-size: 16px; margin-left: 4px; vertical-align: middle; }
+        .data-table .flag-icon { font-size: 16px; margin-right: 6px; vertical-align: middle; }
+        
+        .medal { font-size: 16px; margin-right: 6px; }
 
         .hidden { display: none !important; }
         
@@ -117,7 +130,8 @@
         }
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
-            .grid-5 { grid-template-columns: repeat(2, 1fr); }
+            .grid-5 { grid-template-columns: 1fr 1fr; }
+            .grid-5 .kpi-card:last-child { grid-column: span 2; } /* Centraliza o último KPI no mobile */
             .grid-3-charts { grid-template-columns: 1fr; }
             .grid-3-charts .panel:last-child { grid-column: auto; }
             .grid-2-tables { grid-template-columns: 1fr; }
@@ -125,7 +139,7 @@
             .top-bar { flex-direction: column; gap: 12px; align-items: center; } 
             #action-buttons { width: 100%; display: flex; gap: 8px;}
             .btn-action { flex: 1; text-align: center; padding: 12px 10px;}
-            .kpi-value { font-size: 26px; }
+            .kpi-value { font-size: 24px; }
             .logo { max-width: 180px; } 
         }
     </style>
@@ -170,7 +184,7 @@
         <!-- ACTIVE FILTERS -->
         <div class="filter-bar" id="filter-bar">
             <span class="filter-label">Active Filters:</span>
-            <div id="active-filters-container" style="display:flex; gap:8px; flex-wrap:wrap; flex:1;"></div>
+            <div id="active-filters-container" style="display:flex; gap:8px; flex-wrap:wrap; justify-content: center;"></div>
         </div>
 
         <!-- VALVE INTERACTIVE CARDS -->
@@ -211,12 +225,12 @@
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Country</div>
-                <div class="kpi-value" id="kpi-top-country" style="font-size: 20px;">--</div>
+                <div class="kpi-value" id="kpi-top-country">--</div>
                 <div class="kpi-sub">By Volume</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-title">Top Hospital</div>
-                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 16px;">--</div>
+                <div class="kpi-value" id="kpi-top-hospital" style="font-size: 16px; line-height: 1.3;">--</div>
                 <div class="kpi-sub">Most Active Center</div>
             </div>
             <div class="kpi-card">
@@ -230,17 +244,19 @@
         <div class="grid-3-charts">
             <!-- GRÁFICO 1: Custom Legend Doughnut -->
             <div class="panel">
-                <h2 class="panel-title">TECHNOLOGY MIX</h2>
+                <div class="panel-header"><h2 class="panel-title">TECHNOLOGY MIX</h2></div>
                 <div class="chart-container"><canvas id="mixChart"></canvas></div>
             </div>
-            <!-- GRÁFICO 2: Horizontal Ranking Bar -->
+            <!-- GRÁFICO 2: Native HTML Ranking Bar (ADEUS PIZZA) -->
             <div class="panel">
-                <h2 class="panel-title">COUNTRY RANKING</h2>
-                <div class="chart-container"><canvas id="countryChart"></canvas></div>
+                <div class="panel-header"><h2 class="panel-title">COUNTRY RANKING</h2></div>
+                <div class="chart-container" id="country-ranking-container" style="justify-content: flex-start; overflow-y: auto;">
+                    <!-- Preenchido via JS -->
+                </div>
             </div>
             <!-- GRÁFICO 3: Trend -->
             <div class="panel">
-                <h2 class="panel-title">MONTHLY TREND</h2>
+                <div class="panel-header"><h2 class="panel-title">MONTHLY TREND</h2></div>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
             </div>
         </div>
@@ -249,7 +265,7 @@
         <div class="grid-2-tables">
             <!-- HOSPITALS -->
             <div class="panel">
-                <h2 class="panel-title">HOSPITAL RANKING</h2>
+                <div class="panel-header"><h2 class="panel-title">HOSPITAL RANKING</h2></div>
                 <div class="table-wrap">
                     <table class="data-table" id="hospitals-table">
                         <thead><tr><th>Hospital / Center (Click to Filter)</th><th style="text-align:center;">Cases</th></tr></thead>
@@ -260,7 +276,7 @@
 
             <!-- SPECIALISTS -->
             <div class="panel">
-                <h2 class="panel-title">CLINICAL SPECIALISTS</h2>
+                <div class="panel-header"><h2 class="panel-title">CLINICAL SPECIALISTS</h2></div>
                 <div class="table-wrap">
                     <table class="data-table" id="spec-table">
                         <thead><tr><th>Specialist (Click to Filter)</th><th style="text-align:center;">Cases</th></tr></thead>
@@ -271,7 +287,7 @@
 
             <!-- IMPLANTERS -->
             <div class="panel">
-                <h2 class="panel-title">TOP IMPLANTERS</h2>
+                <div class="panel-header"><h2 class="panel-title">TOP IMPLANTERS</h2></div>
                 <div class="table-wrap">
                     <table class="data-table" id="implants-table">
                         <thead><tr><th>Doctor (Click to Filter)</th><th style="text-align:center;">Cases</th></tr></thead>
@@ -280,9 +296,9 @@
                 </div>
             </div>
 
-            <!-- PROCTORS -->
+            <!-- PROCTORS RANKING -->
             <div class="panel">
-                <h2 class="panel-title">PROCTOR PAYOUTS</h2>
+                <div class="panel-header"><h2 class="panel-title">PROCTOR RANKING & PAYOUTS</h2></div>
                 <div class="table-wrap">
                     <table class="data-table" id="proctor-table">
                         <thead><tr><th>Proctor (Click to Filter)</th><th style="text-align:center;">Vol</th><th style="text-align:right;">Payout</th></tr></thead>
@@ -314,7 +330,7 @@
 
     let globalCases = [];
     let currentFilters = {};
-    let mixChart, countryChart, trendChart;
+    let mixChart, trendChart;
     const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     const FLAGS = {
@@ -333,7 +349,6 @@
         updateDashboard();
     }
 
-    // Motores de Limpeza (mantidos iguais)
     function getFlag(name, countryDict) {
         if (name === "Fabio Silva") return "🇧🇷";
         if (name === "Stephanie Bugueño") return "🇨🇱";
@@ -542,7 +557,8 @@
             return true;
         });
 
-        document.getElementById('kpi-total').innerText = filtered.length;
+        const total = filtered.length;
+        document.getElementById('kpi-total').innerText = total;
 
         let valves = {}, countries = {}, hospitals = {}, implanters = {}, specs = {}, proctors = {}, monthCounts = new Array(12).fill(0);
         let hospC = {}, implC = {}, specC = {}, procC = {};
@@ -599,19 +615,52 @@
             }
         });
 
+        // ================= NOVO: NATIVE HTML PROGRESS BARS PARA PAÍSES =================
+        let sortedCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]);
+        const countryColors = ['#302B6A', '#E68A2E', '#171434', '#6B7280', '#10B981', '#3B82F6', '#F59E0B'];
+        let cHtml = '';
+        sortedCountries.forEach((c, idx) => {
+             let pct = total > 0 ? (c[1]/total*100).toFixed(1) : 0;
+             let bgClass = (currentFilters['country'] === c[0]) ? 'background-color: #EEF2FF;' : '';
+             let color = countryColors[idx % countryColors.length];
+             cHtml += `
+             <div class="html-ranking-row" style="${bgClass}" onclick="toggleFilter('country', '${c[0]}')">
+                 <div class="html-ranking-labels">
+                     <div><span class="html-ranking-flag">${FLAGS[c[0]] || ''}</span>${c[0]}</div>
+                     <div class="html-ranking-data">${c[1]} <span style="color:#64748B; font-size:10px;">(${pct}%)</span></div>
+                 </div>
+                 <div class="html-ranking-track">
+                     <div class="html-ranking-fill" style="width: ${pct}%; background: ${color};"></div>
+                 </div>
+             </div>`;
+        });
+        document.getElementById('country-ranking-container').innerHTML = cHtml;
+
+        // Tabelas de Pessoas (com Medalhas para Proctors)
         function renderTable(tableId, dataObj, filterKey, isProctor = false, countryMap = {}) {
             let tbody = document.querySelector(`#${tableId} tbody`);
             tbody.innerHTML = '';
-            Object.entries(dataObj).sort((a, b) => (isProctor ? b[1].total - a[1].total : b[1] - a[1])).forEach(([name, val]) => {
+            
+            let sortedData = Object.entries(dataObj).sort((a, b) => (isProctor ? b[1].total - a[1].total : b[1] - a[1]));
+            
+            sortedData.forEach(([name, val], index) => {
                 let flag = getFlag(name, countryMap[name]);
-                let display = `${name} <span class="flag-icon">${flag}</span>`;
                 let bgClass = (currentFilters[filterKey] === name) ? 'style="background:#EEF2FF;"' : '';
                 
                 if (isProctor) {
+                    // PÓDIO DE PROCTORS (RANKING VISUAL)
+                    let medal = '';
+                    if (index === 0) medal = '<span class="medal">🥇</span>';
+                    else if (index === 1) medal = '<span class="medal">🥈</span>';
+                    else if (index === 2) medal = '<span class="medal">🥉</span>';
+                    else medal = `<span style="display:inline-block; width: 22px; text-align:center; color:#94A3B8; font-weight:bold; font-size:10px; margin-right:6px;">${index+1}.</span>`;
+
+                    let display = `${medal} <span class="flag-icon">${flag}</span> ${name}`;
                     let fee = val.paidCases * 2000;
-                    let badge = (val.total > val.paidCases) ? `<br><span class="badge">BR Excluded</span>` : ``;
+                    let badge = (val.total > val.paidCases) ? `<br><span class="badge" style="margin-left:28px;">BR Excl.</span>` : ``;
                     tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display} ${badge}</td><td class="val">${val.total}</td><td class="money">$${fee.toLocaleString()}</td></tr>`;
                 } else {
+                    let display = `<span class="flag-icon">${flag}</span> ${name}`;
                     tbody.innerHTML += `<tr class="clickable-row" ${bgClass} onclick="toggleFilter('${filterKey}', '${name}')"><td>${display}</td><td class="val">${val}</td></tr>`;
                 }
             });
@@ -621,70 +670,36 @@
         renderTable('implants-table', implanters, 'implanters', false, implC);
         renderTable('proctor-table', proctors, 'proctors', true, procC);
 
-        /* ================= GRÁFICOS MELHORADOS (O SEGREDO DO MOBILE) ================= */
-        
-        // 1. DOUGHNUT (MIX) - SEM NÚMEROS DENTRO, COM LEGENDA CUSTOMIZADA
+        // ================= GRÁFICOS (CHART.JS) =================
+        // DOUGHNUT (MIX) - SEM NÚMEROS, LEGENDA CUSTOMIZADA ABAIXO
         if(mixChart) mixChart.destroy();
         mixChart = new Chart(document.getElementById('mixChart').getContext('2d'), {
             type: 'doughnut',
             data: { labels: Object.keys(valves), datasets: [{ data: Object.values(valves), backgroundColor: ['#E68A2E', '#302B6A', '#171434', '#6B7280', '#9CA3AF'], borderWidth: 2 }] },
             options: { 
-                responsive: true, maintainAspectRatio: false, 
-                cutout: '60%', // Deixa o doughnut mais fino e elegante
+                responsive: true, maintainAspectRatio: false, cutout: '65%', 
                 plugins: { 
-                    datalabels: { display: false }, // DESLIGA OS NÚMEROS DA PIZZA
+                    datalabels: { display: false }, 
                     legend: { 
                         position: 'bottom', align: 'start', 
                         labels: { 
                             padding: 12, font: {family: 'Space Mono', size: 11}, color: '#1E293B',
                             generateLabels: (chart) => {
-                                const data = chart.data; const total = data.datasets[0].data.reduce((a,b)=>a+b,0);
+                                const data = chart.data; const t = data.datasets[0].data.reduce((a,b)=>a+b,0);
                                 return data.labels.map((lbl, i) => {
-                                    const v = data.datasets[0].data[i]; const pct = total > 0 ? (v*100/total).toFixed(1)+'%' : '0%';
+                                    const v = data.datasets[0].data[i]; const pct = t > 0 ? (v*100/t).toFixed(1)+'%' : '0%';
                                     return { text: `${lbl}: ${v} (${pct})`, fillStyle: data.datasets[0].backgroundColor[i], index: i };
                                 });
                             }
                         },
-                        onClick: (e, legendItem, legend) => {
-                            toggleFilter('valve', legend.chart.data.labels[legendItem.index]);
-                        }
+                        onClick: (e, legendItem, legend) => { toggleFilter('valve', legend.chart.data.labels[legendItem.index]); }
                     } 
                 },
                 onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('valve', chart.data.labels[elements[0].index]); }
             }
         });
 
-        // 2. BARRA HORIZONTAL (RANKING DE PAÍSES) - ADEUS PIZZA!
-        let sortedCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]);
-        let cLabels = sortedCountries.map(x => x[0] + " " + FLAGS[x[0]]);
-        let cData = sortedCountries.map(x => x[1]);
-        
-        if(countryChart) countryChart.destroy();
-        countryChart = new Chart(document.getElementById('countryChart').getContext('2d'), {
-            type: 'bar', // Tipo barra
-            data: { labels: cLabels, datasets: [{ data: cData, backgroundColor: ['#302B6A', '#E68A2E', '#171434', '#6B7280', '#10B981', '#3B82F6', '#F59E0B'], borderRadius: 4 }] },
-            options: { 
-                indexAxis: 'y', // Faz a barra ficar horizontal
-                responsive: true, maintainAspectRatio: false, 
-                plugins: { 
-                    legend: { display: false },
-                    datalabels: { 
-                        align: 'end', anchor: 'end', color: '#171434', font: {family: 'Space Mono', size: 11, weight: 'bold'}, textShadowBlur: 0,
-                        formatter: (val, ctx) => {
-                            const total = ctx.chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
-                            return `${val} (${(val*100/total).toFixed(1)}%)`;
-                        }
-                    } 
-                },
-                scales: { 
-                    x: { display: false, suggestedMax: Math.max(...cData) * 1.3 }, // Esconde o eixo X e dá espaço pro número
-                    y: { grid: { display: false }, ticks: { font: {weight: 'bold', size: 11}, color: '#1E293B' } }
-                },
-                onClick: (evt, elements, chart) => { if (elements.length > 0) toggleFilter('country', sortedCountries[elements[0].index][0]); }
-            }
-        });
-
-        // 3. BARRA VERTICAL (TENDÊNCIA)
+        // BARRA VERTICAL (TENDÊNCIA)
         if(trendChart) trendChart.destroy();
         trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
             type: 'bar',
