@@ -87,7 +87,7 @@
         
         .chart-container { position: relative; width: 100%; flex-grow: 1; min-height: 220px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; overflow-y: auto;}
 
-        /* HTML RANKING BAR (USADO PARA PAÍSES E VÁLVULAS) */
+        /* HTML RANKING BAR */
         .html-ranking-row { display: flex; flex-direction: column; margin-bottom: 10px; cursor: pointer; padding: 4px; border-radius: 6px; transition: 0.2s;}
         .html-ranking-row:hover { background-color: #EEF2FF; }
         .html-ranking-labels { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800; color: var(--venus-deep); margin-bottom: 4px; }
@@ -114,7 +114,6 @@
         ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 6px; }
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
 
-        /* MEDIA QUERIES BLINDADAS PARA PORTRAIT E LANDSCAPE */
         @media (max-width: 1024px) {
             .grid-5 { grid-template-columns: repeat(3, 1fr); }
             .grid-5 .kpi-card:nth-child(4), .grid-5 .kpi-card:nth-child(5) { grid-column: span 1; }
@@ -235,17 +234,14 @@
 
         <!-- CHARTS -->
         <div class="grid-3-charts">
-            <!-- GRÁFICO 1: HTML Ranking Bar para Technology Mix (Substituiu a Rosca) -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">TECHNOLOGY MIX</h2></div>
                 <div class="chart-container" id="mix-ranking-container" style="justify-content: flex-start; overflow-y: auto;"></div>
             </div>
-            <!-- GRÁFICO 2: HTML Ranking Bar para Countries -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">COUNTRY RANKING</h2></div>
                 <div class="chart-container" id="country-ranking-container" style="justify-content: flex-start; overflow-y: auto;"></div>
             </div>
-            <!-- GRÁFICO 3: Monthly Trend -->
             <div class="panel">
                 <div class="panel-header"><h2 class="panel-title">MONTHLY TREND</h2></div>
                 <div class="chart-container"><canvas id="trendChart"></canvas></div>
